@@ -117,27 +117,28 @@
       box-shadow: 0 22px 45px rgba(15, 23, 42, 0.14);
       border-color: #bfdbfe;
     }
-.poster-thumb {
-  position: relative;
-  width: 100%;
-  height: 220px;   /* You can adjust this number */
-  background: #f3f4f6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
 
-.poster-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;  /* <— shows the whole image */
-}
+    /* Thumbnail – show whole image, no crop, no zoom */
+    .poster-thumb {
+      position: relative;
+      width: 100%;
+      height: 220px; /* adjust if you want bigger/smaller */
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
 
-
+    .poster-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* show full image */
+      transition: transform 0.18s ease;
+    }
 
     .poster-card:hover .poster-thumb img {
-      transform: scale(1.04);
+      transform: none; /* no zoom on hover */
     }
 
     .badge {
@@ -269,7 +270,7 @@
       </div>
       <h1>Research Projects by Alhamza Hamza</h1>
       <p class="subtitle">
-        A curated collection of my academic and research posters. These projects highlights work in
+        A curated collection of my academic and research posters. These projects highlight work in
         pharmacy, research, and patient-centered innovation.
       </p>
       <div class="meta-row">
@@ -281,7 +282,7 @@
     <!-- POSTER GRID -->
     <section class="poster-grid">
 
-      <!-- 🔵 Poster 1 (PDF) -->
+      <!-- 🔵 Poster 1 -->
       <article class="poster-card">
         <div class="poster-thumb">
           <img
@@ -302,7 +303,6 @@
             <span class="tag">Research</span>
           </div>
           <div class="poster-actions">
-            <!-- Poster 1.pdf in same folder -->
             <a
               class="btn btn-primary"
               href="Poster%201.pdf"
@@ -323,11 +323,11 @@
         </div>
       </article>
 
-      <!-- 🔵 Poster 2 (PDF) -->
+      <!-- 🔵 Poster 2 -->
       <article class="poster-card">
         <div class="poster-thumb">
           <img
-             src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg"
+            src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg"
             alt="Poster 2 thumbnail"
           />
           <span class="badge">2019</span>
@@ -344,7 +344,6 @@
             <span class="tag">Research</span>
           </div>
           <div class="poster-actions">
-            <!-- Poster 2.pdf in same folder -->
             <a
               class="btn btn-primary"
               href="Poster%202.pdf"
@@ -365,11 +364,11 @@
         </div>
       </article>
 
-      <!-- 🔵 Poster 3 (PDF) -->
+      <!-- 🔵 Poster 3 -->
       <article class="poster-card">
         <div class="poster-thumb">
           <img
-             src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg"
+            src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg"
             alt="Poster 3 thumbnail"
           />
           <span class="badge">2024–2025</span>
@@ -388,7 +387,6 @@
             <span class="tag">Research</span>
           </div>
           <div class="poster-actions">
-            <!-- Poster 3.pdf in same folder -->
             <a
               class="btn btn-primary"
               href="Poster%203.pdf"
@@ -408,20 +406,20 @@
           </div>
         </div>
       </article>
-      <!-- 🔵 Poster 4 (PDF) -->
+
+      <!-- 🔵 Poster 4 -->
       <article class="poster-card">
         <div class="poster-thumb">
           <img
-             src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg"
-            alt="Poster 1 thumbnail"
+            src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg"
+            alt="Poster 4 thumbnail"
           />
           <span class="badge">2025</span>
         </div>
         <div class="poster-body">
           <h2 class="poster-title">
-            Telmisartan targets Nrf2-HO1 axis in MASLD
-modulating oxidative stress, inflammation, and
-mitochondrial dysfunction: mechanistic insights
+            Telmisartan targets Nrf2-HO1 axis in MASLD modulating oxidative stress, inflammation, and
+            mitochondrial dysfunction: mechanistic insights
           </h2>
           <div class="poster-meta">
             <span>Libyan Journal of Medicine</span>
@@ -430,7 +428,6 @@ mitochondrial dysfunction: mechanistic insights
             <span class="tag">Research</span>
           </div>
           <div class="poster-actions">
-            <!-- Poster 4.pdf in same folder -->
             <a
               class="btn btn-primary"
               href="Poster%204.pdf"
@@ -450,28 +447,28 @@ mitochondrial dysfunction: mechanistic insights
           </div>
         </div>
       </article>
-      <!-- 🔵 Poster 5 (PDF) -->
+
+      <!-- 🔵 Poster 5 -->
       <article class="poster-card">
         <div class="poster-thumb">
           <img
             src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg"
-            alt="Poster 1 thumbnail"
+            alt="Poster 5 thumbnail"
           />
           <span class="badge">2025</span>
         </div>
         <div class="poster-body">
           <h2 class="poster-title">
-            The Clinical Impact of SGLT2 Inhibitors in Patients with and without 
-Type 2 Diabetes: Systematic Review 
+            The Clinical Impact of SGLT2 Inhibitors in Patients with and without
+            Type 2 Diabetes: Systematic Review
           </h2>
           <div class="poster-meta">
-            <span>American Journal of Psychiatric Rehabilitation </span>
+            <span>American Journal of Psychiatric Rehabilitation</span>
           </div>
           <div class="poster-tags">
             <span class="tag">Research</span>
           </div>
           <div class="poster-actions">
-            <!-- Poster 5.pdf in same folder -->
             <a
               class="btn btn-primary"
               href="Poster%205.pdf"
