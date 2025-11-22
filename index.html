@@ -119,19 +119,17 @@
     }
 
     .poster-thumb {
-      position: relative;
-      aspect-ratio: 4 / 3;
-      overflow: hidden;
-      background: #e5e7eb;
-    }
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px;
+}
 
-    .poster-thumb img {
-      width: 50%;
-      height: 50%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.3s ease;
-    }
+.poster-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 
     .poster-card:hover .poster-thumb img {
       transform: scale(1.04);
