@@ -14,11 +14,6 @@
       --accent-green: #22c55e;
       --radius-large: 26px;
       --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.08);
-
-      /* extras to support chips/tags without changing behavior */
-      --accent-soft: #dbeafe;
-      --border-soft: #e5e7eb;
-      --radius-sm: 999px;
     }
 
     * {
@@ -32,7 +27,6 @@
         system-ui, sans-serif;
       background: var(--bg);
       color: var(--text-main);
-      min-height: 100vh;
     }
 
     a {
@@ -44,184 +38,183 @@
       text-decoration: underline;
     }
 
-    .page {
-      max-width: 1100px;
+    /* ---------- HEADER ---------- */
+
+    .store-header {
+      padding: 32px 8vw 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 32px 16px 40px;
     }
 
-    header {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--accent-blue);
-      background: rgba(0, 113, 227, 0.06);
-      border-radius: var(--radius-sm);
-      padding: 4px 10px;
-      width: fit-content;
-    }
-
-    .eyebrow-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent-blue);
-    }
-
-    h1 {
-      font-size: clamp(26px, 3vw, 32px);
+    .store-logo {
+      font-size: clamp(2rem, 3vw, 2.8rem);
       font-weight: 700;
-      letter-spacing: 0.01em;
+      background: linear-gradient(90deg, #0071e3, #34c759);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
-    .subtitle {
-      max-width: 650px;
-      font-size: 14px;
+    .store-right {
+      text-align: right;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      max-width: 420px;
+    }
+
+    .store-right p:first-child {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .store-right p:last-child {
       color: var(--text-sub);
-      line-height: 1.5;
     }
 
-    .meta-row {
+    /* ---------- MAIN SECTION ---------- */
+
+    .latest-section {
+      padding: 10px 8vw 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .headline {
+      font-size: clamp(1.7rem, 2.4vw, 2.1rem);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .headline-accent {
+      color: #0071e3;
+    }
+
+    .headline-sub {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      max-width: 540px;
+      line-height: 1.4;
+    }
+
+    /* ---------- CARD SLIDER ---------- */
+
+    .card-slider {
+      position: relative;
+      margin-top: 16px;
+    }
+
+    .card-track {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--text-sub);
-      margin-top: 4px;
+      gap: 22px;
+      overflow-x: auto;
+      padding: 6px 0 20px;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
     }
 
-    .meta-chip {
-      background: #ffffff;
-      border-radius: var(--radius-sm);
-      padding: 4px 10px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.03);
+    .card-track::-webkit-scrollbar {
+      height: 0; /* hide scrollbar (Safari/Chrome) */
     }
 
-    /* GRID */
-    .poster-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-      margin-top: 8px;
-    }
-
-    .poster-card {
+    .product-card {
+      scroll-snap-align: start;
+      flex: 0 0 min(360px, 80vw);
       background: var(--card-bg);
       border-radius: var(--radius-large);
       box-shadow: var(--shadow-soft);
-      overflow: hidden;
+      padding: 18px 18px 18px;
       display: flex;
       flex-direction: column;
-      border: 1px solid rgba(0, 0, 0, 0.02);
-      transition:
-        transform 0.16s ease,
-        box-shadow 0.16s ease,
-        border-color 0.16s ease;
+      justify-content: space-between;
     }
 
-    .poster-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 22px 45px rgba(0, 0, 0, 0.12);
-      border-color: rgba(0, 113, 227, 0.18);
+    .product-tag {
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      margin-bottom: 4px;
+      font-weight: 500;
     }
 
-    /* THUMBNAIL */
-    .poster-thumb {
+    .product-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+
+    .product-meta {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .product-meta span + span::before {
+      content: " • ";
+      margin: 0 2px;
+    }
+
+    .product-image-wrap {
       position: relative;
+      margin-top: 6px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #f8f8fa;
+      padding: 10px 12px;
+    }
+
+    .product-image-wrap img {
       width: 100%;
       height: 220px;
-      background: #f2f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .poster-thumb img {
-      width: 100%;
-      height: 100%;
       object-fit: contain;
+      display: block;
     }
 
-    .badge {
+    .poster-badge {
       position: absolute;
-      left: 14px;
-      top: 14px;
-      padding: 4px 10px;
+      left: 12px;
+      top: 10px;
+      padding: 3px 9px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 0.7rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      background: rgba(17, 24, 39, 0.8);
+      background: rgba(17, 24, 39, 0.85);
       color: #f9fafb;
-    }
-
-    .poster-body {
-      padding: 16px 18px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .poster-title {
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.35;
-      color: var(--text-main);
-    }
-
-    .poster-meta {
-      font-size: 12px;
-      color: var(--text-sub);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .poster-meta span + span::before {
-      content: "• ";
-      margin-right: 3px;
-      color: rgba(148, 163, 184, 0.9);
     }
 
     .poster-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 4px;
+      margin-top: 8px;
     }
 
     .tag {
-      font-size: 11px;
+      font-size: 0.75rem;
       border-radius: 999px;
       padding: 3px 8px;
-      background: #f3f4f6;
-      color: var(--accent-blue);
-      border: 1px solid rgba(0, 113, 227, 0.25);
+      background: #e5edff;
+      color: #1d4ed8;
+      border: 1px solid rgba(37, 99, 235, 0.35);
     }
 
-    .poster-actions {
+    .product-actions {
       margin-top: 10px;
       display: flex;
-      gap: 8px;
       flex-wrap: wrap;
+      gap: 8px;
     }
 
     .btn {
       border-radius: 999px;
       padding: 7px 14px;
-      font-size: 12px;
+      font-size: 0.8rem;
       font-weight: 500;
       border: 1px solid transparent;
       cursor: pointer;
@@ -230,9 +223,9 @@
       align-items: center;
       gap: 6px;
       transition:
-        background 0.16s ease,
-        color 0.16s ease,
-        border-color 0.16s ease,
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
         transform 0.12s ease;
       white-space: nowrap;
     }
@@ -253,7 +246,7 @@
     .btn-ghost {
       background: #ffffff;
       color: var(--text-sub);
-      border-color: rgba(148, 163, 184, 0.7);
+      border-color: #d1d5db;
     }
 
     .btn-ghost:hover {
@@ -263,287 +256,359 @@
       text-decoration: none;
     }
 
-    footer {
-      margin-top: 32px;
-      font-size: 11px;
-      color: var(--text-sub);
-      text-align: center;
+    /* ---------- ARROWS (slider) ---------- */
+
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition:
+        background 0.18s ease,
+        transform 0.12s ease,
+        box-shadow 0.18s ease;
+      z-index: 5;
     }
 
-    @media (max-width: 600px) {
-      .page {
-        padding-top: 22px;
+    .slider-arrow span {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .slider-arrow.left {
+      left: -18px;
+    }
+
+    .slider-arrow.right {
+      right: -18px;
+    }
+
+    .slider-arrow:hover {
+      background: #f0f0f0;
+      transform: translateY(-50%) scale(1.03);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    .slider-arrow:active {
+      transform: translateY(-50%) scale(0.96);
+    }
+
+    /* Hide arrows on small screens */
+    @media (max-width: 768px) {
+      .slider-arrow {
+        display: none;
       }
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+      padding: 12px 8vw 24px;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <header>
-      <div class="eyebrow">
-        <span class="eyebrow-dot"></span>
-        Research Publications & Poster Showcase
-      </div>
-      <h1>Research Projects by Alhamza Hamza</h1>
-      <p class="subtitle">
-        A curated collection of my academic and research posters. These projects highlight work in
-        pharmacy, research, and patient-centered innovation.
+  <!-- HEADER in your theme style -->
+  <header class="store-header">
+    <div class="store-logo">
+      Research Posters
+    </div>
+    <div class="store-right">
+      <p>Alhamza Hamza, PharmD Candidate 2026</p>
+      <p>
+        University of Kansas School of Pharmacy · Research, informatics, and
+        patient-centered innovation.
       </p>
-      <div class="meta-row">
-        <div class="meta-chip">PharmD Candidate 2026 · University of Kansas</div>
-        <div class="meta-chip">Interested in PGY-1/PGY-2 (Informatics)</div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT using your latest-section + card-slider style -->
+  <main>
+    <section class="latest-section">
+      <h1 class="headline">
+        Latest <span class="headline-accent">Research & Poster Showcase</span>
+      </h1>
+      <p class="headline-sub">
+        Click any card to view the full poster as a PDF, download it, or open
+        the corresponding journal article when available.
+      </p>
+
+      <div class="card-slider">
+        <button class="slider-arrow left" type="button" onclick="scrollCards(-1)">
+          <span>‹</span>
+        </button>
+
+        <div class="card-track" id="posterTrack">
+          <!-- 🔵 Poster 1 -->
+          <article class="product-card">
+            <div class="product-tag">2023 · Research Poster</div>
+            <h2 class="product-title">
+              The Effect of Structurally Diverse Indoles and Monosaccharides on U2OS Morphology via Cell Painting Assay
+            </h2>
+            <div class="product-meta">
+              <span>KU Research Symposium</span>
+              <span>Lawrence, Kansas</span>
+            </div>
+            <div class="product-image-wrap">
+              <span class="poster-badge">2023</span>
+              <img
+                src="https://raw.githubusercontent.com/a860h040/Poster/main/1.jpg"
+                alt="Poster: Structurally diverse indoles and monosaccharides on U2OS morphology via cell painting assay"
+                loading="lazy"
+              />
+            </div>
+            <div class="poster-tags">
+              <span class="tag">Research</span>
+            </div>
+            <div class="product-actions">
+              <a
+                class="btn btn-primary"
+                href="Poster%201.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PDF
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="Poster%201.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                Download
+              </a>
+            </div>
+          </article>
+
+          <!-- 🔵 Poster 2 -->
+          <article class="product-card">
+            <div class="product-tag">2019 · Research Poster</div>
+            <h2 class="product-title">
+              The Effect of D(+)-Maltose and Curry on Glycogen Phosphorylase b
+            </h2>
+            <div class="product-meta">
+              <span>KU Research Symposium</span>
+              <span>Lawrence, Kansas</span>
+            </div>
+            <div class="product-image-wrap">
+              <span class="poster-badge">2019</span>
+              <img
+                src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg"
+                alt="Poster: Effect of D(+)-maltose and curry on glycogen phosphorylase b"
+                loading="lazy"
+              />
+            </div>
+            <div class="poster-tags">
+              <span class="tag">Research</span>
+            </div>
+            <div class="product-actions">
+              <a
+                class="btn btn-primary"
+                href="Poster%202.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PDF
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="Poster%202.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                Download
+              </a>
+            </div>
+          </article>
+
+          <!-- 🔵 Poster 3 -->
+          <article class="product-card">
+            <div class="product-tag">2024–2025 · Pharmacogenomics</div>
+            <h2 class="product-title">
+              Optimizing Chemotherapy Safety: Implementing DPYD Pharmacogenomic Testing for 5-Fluorouracil Dosing
+            </h2>
+            <div class="product-meta">
+              <span>KU Research Symposium</span>
+              <span>KCHP Spring Conference</span>
+              <span>KPHA</span>
+              <span>Lawrence, Kansas</span>
+            </div>
+            <div class="product-image-wrap">
+              <span class="poster-badge">2024–2025</span>
+              <img
+                src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg"
+                alt="Poster: DPYD pharmacogenomic testing for 5-fluorouracil dosing"
+                loading="lazy"
+              />
+            </div>
+            <div class="poster-tags">
+              <span class="tag">Research</span>
+            </div>
+            <div class="product-actions">
+              <a
+                class="btn btn-primary"
+                href="Poster%203.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PDF
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="Poster%203.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                Download
+              </a>
+            </div>
+          </article>
+
+          <!-- 🔵 Poster 4 -->
+          <article class="product-card">
+            <div class="product-tag">2025 · Published Article</div>
+            <h2 class="product-title">
+              Telmisartan Targets Nrf2–HO-1 Axis in MASLD Modulating Oxidative Stress, Inflammation, and
+              Mitochondrial Dysfunction: Mechanistic Insights
+            </h2>
+            <div class="product-meta">
+              <span>Libyan Journal of Medicine</span>
+              <span>2025 · DOI: 10.1080/19932820.2025.2585617</span>
+            </div>
+            <div class="product-image-wrap">
+              <span class="poster-badge">2025</span>
+              <img
+                src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg"
+                alt="Poster: Telmisartan targets Nrf2-HO-1 axis in MASLD"
+                loading="lazy"
+              />
+            </div>
+            <div class="poster-tags">
+              <span class="tag">Research</span>
+            </div>
+            <div class="product-actions">
+              <a
+                class="btn btn-primary"
+                href="Poster%204.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PDF
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="Poster%204.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                Download
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="https://www.tandfonline.com/doi/full/10.1080/19932820.2025.2585617"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Journal article
+              </a>
+            </div>
+          </article>
+
+          <!-- 🔵 Poster 5 -->
+          <article class="product-card">
+            <div class="product-tag">2025 · Systematic Review</div>
+            <h2 class="product-title">
+              The Clinical Impact of SGLT2 Inhibitors in Patients with and without
+              Type 2 Diabetes: Systematic Review
+            </h2>
+            <div class="product-meta">
+              <span>American Journal of Psychiatric Rehabilitation</span>
+              <span>Vol. 28, Issue 5 (2025) · DOI: 10.69980/ajpr.v28i5.512</span>
+            </div>
+            <div class="product-image-wrap">
+              <span class="poster-badge">2025</span>
+              <img
+                src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg"
+                alt="Poster: Clinical impact of SGLT2 inhibitors in patients with and without type 2 diabetes"
+                loading="lazy"
+              />
+            </div>
+            <div class="poster-tags">
+              <span class="tag">Research</span>
+            </div>
+            <div class="product-actions">
+              <a
+                class="btn btn-primary"
+                href="Poster%205.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PDF
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="Poster%205.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                Download
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="https://ajprui.com/index.php/ajpr/article/view/512"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Journal article
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <button class="slider-arrow right" type="button" onclick="scrollCards(1)">
+          <span>›</span>
+        </button>
       </div>
-    </header>
-
-    <!-- POSTER GRID -->
-    <section class="poster-grid">
-
-      <!-- 🔵 Poster 1 -->
-      <article class="poster-card">
-        <div class="poster-thumb">
-          <img
-            src="https://raw.githubusercontent.com/a860h040/Poster/main/1.jpg"
-            alt="Poster: Structurally diverse indoles and monosaccharides on U2OS morphology via cell painting assay"
-            loading="lazy"
-          />
-          <span class="badge">2023</span>
-        </div>
-        <div class="poster-body">
-          <h2 class="poster-title">
-            The Effect of Structurally Diverse Indoles and Monosaccharides on U2OS Morphology via Cell Painting Assay
-          </h2>
-          <div class="poster-meta">
-            <span>KU Research Symposium</span>
-            <span>Lawrence, Kansas</span>
-          </div>
-          <div class="poster-tags">
-            <span class="tag">Research</span>
-          </div>
-          <div class="poster-actions">
-            <a
-              class="btn btn-primary"
-              href="Poster%201.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View PDF
-            </a>
-            <a
-              class="btn btn-ghost"
-              href="Poster%201.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-            >
-              Download
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- 🔵 Poster 2 -->
-      <article class="poster-card">
-        <div class="poster-thumb">
-          <img
-            src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg"
-            alt="Poster: Effect of D(+)-maltose and curry on glycogen phosphorylase b"
-            loading="lazy"
-          />
-          <span class="badge">2019</span>
-        </div>
-        <div class="poster-body">
-          <h2 class="poster-title">
-            The Effect of D(+)-Maltose and Curry on Glycogen Phosphorylase b
-          </h2>
-          <div class="poster-meta">
-            <span>KU Research Symposium</span>
-            <span>Lawrence, Kansas</span>
-          </div>
-          <div class="poster-tags">
-            <span class="tag">Research</span>
-          </div>
-          <div class="poster-actions">
-            <a
-              class="btn btn-primary"
-              href="Poster%202.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View PDF
-            </a>
-            <a
-              class="btn btn-ghost"
-              href="Poster%202.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-            >
-              Download
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- 🔵 Poster 3 -->
-      <article class="poster-card">
-        <div class="poster-thumb">
-          <img
-            src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg"
-            alt="Poster: DPYD pharmacogenomic testing for 5-fluorouracil dosing"
-            loading="lazy"
-          />
-          <span class="badge">2024–2025</span>
-        </div>
-        <div class="poster-body">
-          <h2 class="poster-title">
-            Optimizing Chemotherapy Safety: Implementing DPYD Pharmacogenomic Testing for 5-Fluorouracil Dosing
-          </h2>
-          <div class="poster-meta">
-            <span>KU Research Symposium</span>
-            <span>KCHP Spring Conference</span>
-            <span>KPHA</span>
-            <span>Lawrence, Kansas</span>
-          </div>
-          <div class="poster-tags">
-            <span class="tag">Research</span>
-          </div>
-          <div class="poster-actions">
-            <a
-              class="btn btn-primary"
-              href="Poster%203.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View PDF
-            </a>
-            <a
-              class="btn btn-ghost"
-              href="Poster%203.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-            >
-              Download
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- 🔵 Poster 4 -->
-      <article class="poster-card">
-        <div class="poster-thumb">
-          <img
-            src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg"
-            alt="Poster: Telmisartan targets Nrf2-HO-1 axis in MASLD"
-            loading="lazy"
-          />
-          <span class="badge">2025</span>
-        </div>
-        <div class="poster-body">
-          <h2 class="poster-title">
-            Telmisartan Targets Nrf2–HO-1 Axis in MASLD Modulating Oxidative Stress, Inflammation, and
-            Mitochondrial Dysfunction: Mechanistic Insights
-          </h2>
-          <div class="poster-meta">
-            <span>Libyan Journal of Medicine</span>
-            <span>2025 · DOI: 10.1080/19932820.2025.2585617</span>
-          </div>
-          <div class="poster-tags">
-            <span class="tag">Research</span>
-          </div>
-          <div class="poster-actions">
-            <a
-              class="btn btn-primary"
-              href="Poster%204.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View PDF
-            </a>
-            <a
-              class="btn btn-ghost"
-              href="Poster%204.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-            >
-              Download
-            </a>
-            <a
-              class="btn btn-ghost"
-              href="https://www.tandfonline.com/doi/full/10.1080/19932820.2025.2585617"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Journal article
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- 🔵 Poster 5 -->
-      <article class="poster-card">
-        <div class="poster-thumb">
-          <img
-            src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg"
-            alt="Poster: Clinical impact of SGLT2 inhibitors in patients with and without type 2 diabetes"
-            loading="lazy"
-          />
-          <span class="badge">2025</span>
-        </div>
-        <div class="poster-body">
-          <h2 class="poster-title">
-            The Clinical Impact of SGLT2 Inhibitors in Patients with and without
-            Type 2 Diabetes: Systematic Review
-          </h2>
-          <div class="poster-meta">
-            <span>American Journal of Psychiatric Rehabilitation</span>
-            <span>Vol. 28, Issue 5 (2025) · DOI: 10.69980/ajpr.v28i5.512</span>
-          </div>
-          <div class="poster-tags">
-            <span class="tag">Research</span>
-          </div>
-          <div class="poster-actions">
-            <a
-              class="btn btn-primary"
-              href="Poster%205.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View PDF
-            </a>
-            <a
-              class="btn btn-ghost"
-              href="Poster%205.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-            >
-              Download
-            </a>
-            <a
-              class="btn btn-ghost"
-              href="https://doi.org/10.69980/ajpr.v28i5.512"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Journal article
-            </a>
-          </div>
-        </div>
-      </article>
-
     </section>
-
-    <footer>
-      © <span id="year"></span> Alhamza Hamza · Hosted on
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
-    </footer>
   </main>
+
+  <footer>
+    © <span id="year"></span> Alhamza Hamza · Hosted on
+    <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </footer>
 
   <script>
     // auto-update year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // simple horizontal scroll for slider, matching your theme behavior
+    function scrollCards(direction) {
+      const track = document.getElementById("posterTrack");
+      if (!track) return;
+      const card = track.querySelector(".product-card");
+      const amount = card ? card.offsetWidth + 22 : 300;
+      track.scrollBy({
+        left: direction * amount,
+        behavior: "smooth",
+      });
+    }
   </script>
 </body>
 </html>
