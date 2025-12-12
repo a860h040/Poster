@@ -6,15 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #f4f6fb;
+      --bg: #f5f5f7;
       --card-bg: #ffffff;
-      --accent: #2563eb;
+      --text-main: #1d1d1f;
+      --text-sub: #6e6e73;
+      --accent-blue: #0071e3;
+      --accent-green: #22c55e;
+      --radius-large: 26px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.08);
+
+      /* extras to support chips/tags without changing behavior */
       --accent-soft: #dbeafe;
-      --text-main: #111827;
-      --text-muted: #6b7280;
       --border-soft: #e5e7eb;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
-      --radius-lg: 20px;
       --radius-sm: 999px;
     }
 
@@ -25,10 +28,20 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #e0f2fe, #eef2ff 30%, #f9fafb 70%);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        system-ui, sans-serif;
+      background: var(--bg);
       color: var(--text-main);
       min-height: 100vh;
+    }
+
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     .page {
@@ -41,7 +54,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .eyebrow {
@@ -50,8 +63,8 @@
       gap: 6px;
       font-size: 12px;
       font-weight: 500;
-      color: var(--accent);
-      background: rgba(37, 99, 235, 0.07);
+      color: var(--accent-blue);
+      background: rgba(0, 113, 227, 0.06);
       border-radius: var(--radius-sm);
       padding: 4px 10px;
       width: fit-content;
@@ -61,7 +74,7 @@
       width: 6px;
       height: 6px;
       border-radius: 999px;
-      background: var(--accent);
+      background: var(--accent-blue);
     }
 
     h1 {
@@ -73,7 +86,7 @@
     .subtitle {
       max-width: 650px;
       font-size: 14px;
-      color: var(--text-muted);
+      color: var(--text-sub);
       line-height: 1.5;
     }
 
@@ -82,48 +95,52 @@
       flex-wrap: wrap;
       gap: 10px;
       font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 6px;
+      color: var(--text-sub);
+      margin-top: 4px;
     }
 
     .meta-chip {
-      background: rgba(15, 23, 42, 0.03);
+      background: #ffffff;
       border-radius: var(--radius-sm);
       padding: 4px 10px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.03);
     }
 
-    /* Grid */
+    /* GRID */
     .poster-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 18px;
-      margin-top: 12px;
+      margin-top: 8px;
     }
 
     .poster-card {
       background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-large);
       box-shadow: var(--shadow-soft);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      transition:
+        transform 0.16s ease,
+        box-shadow 0.16s ease,
+        border-color 0.16s ease;
     }
 
     .poster-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 22px 45px rgba(15, 23, 42, 0.14);
-      border-color: #bfdbfe;
+      transform: translateY(-3px);
+      box-shadow: 0 22px 45px rgba(0, 0, 0, 0.12);
+      border-color: rgba(0, 113, 227, 0.18);
     }
 
-    /* Thumbnail – show whole image, no crop, no zoom */
+    /* THUMBNAIL */
     .poster-thumb {
       position: relative;
       width: 100%;
       height: 220px;
-      background: #f3f4f6;
+      background: #f2f2f5;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -134,43 +151,39 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transition: transform 0.18s ease;
-    }
-
-    .poster-card:hover .poster-thumb img {
-      transform: none;
     }
 
     .badge {
       position: absolute;
-      left: 12px;
-      top: 12px;
-      padding: 4px 9px;
+      left: 14px;
+      top: 14px;
+      padding: 4px 10px;
       border-radius: 999px;
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      background: rgba(15, 23, 42, 0.7);
+      background: rgba(17, 24, 39, 0.8);
       color: #f9fafb;
     }
 
     .poster-body {
-      padding: 14px 16px 16px;
+      padding: 16px 18px 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .poster-title {
       font-size: 15px;
       font-weight: 600;
       line-height: 1.35;
+      color: var(--text-main);
     }
 
     .poster-meta {
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--text-sub);
       display: flex;
       flex-direction: column;
       gap: 2px;
@@ -193,9 +206,9 @@
       font-size: 11px;
       border-radius: 999px;
       padding: 3px 8px;
-      background: var(--accent-soft);
-      color: #1d4ed8;
-      border: 1px solid rgba(37, 99, 235, 0.35);
+      background: #f3f4f6;
+      color: var(--accent-blue);
+      border: 1px solid rgba(0, 113, 227, 0.25);
     }
 
     .poster-actions {
@@ -216,48 +229,45 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease,
+      transition:
+        background 0.16s ease,
+        color 0.16s ease,
+        border-color 0.16s ease,
         transform 0.12s ease;
       white-space: nowrap;
     }
 
     .btn-primary {
-      background: var(--accent);
-      color: #f9fafb;
-      border-color: #1d4ed8;
+      background: var(--accent-blue);
+      color: #ffffff;
+      border-color: #0071e3;
     }
 
     .btn-primary:hover {
-      background: #1d4ed8;
+      background: #005bb9;
+      border-color: #005bb9;
       transform: translateY(-1px);
+      text-decoration: none;
     }
 
     .btn-ghost {
       background: #ffffff;
-      color: var(--text-muted);
+      color: var(--text-sub);
       border-color: rgba(148, 163, 184, 0.7);
     }
 
     .btn-ghost:hover {
-      border-color: var(--accent);
-      color: #1d4ed8;
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
       transform: translateY(-1px);
+      text-decoration: none;
     }
 
     footer {
       margin-top: 32px;
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-sub);
       text-align: center;
-    }
-
-    footer a {
-      color: #1d4ed8;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
     }
 
     @media (max-width: 600px) {
@@ -424,7 +434,7 @@
         <div class="poster-thumb">
           <img
             src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg"
-            alt="Poster: Telmisartan targets Nrf2-HO1 axis in MASLD"
+            alt="Poster: Telmisartan targets Nrf2-HO-1 axis in MASLD"
             loading="lazy"
           />
           <span class="badge">2025</span>
