@@ -78,7 +78,7 @@
     /* ---------- MAIN SECTION ---------- */
 
     .latest-section {
-      padding: 10px 8vw 40px;
+      padding: 10px 8vw 32px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -98,6 +98,14 @@
       color: var(--text-sub);
       max-width: 540px;
       line-height: 1.4;
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-sub);
+      margin-bottom: 4px;
     }
 
     /* ---------- CARD SLIDER ---------- */
@@ -320,7 +328,7 @@
   </style>
 </head>
 <body>
-  <!-- HEADER in your theme style -->
+  <!-- HEADER -->
   <header class="store-header">
     <div class="store-logo">
       Research Posters
@@ -334,24 +342,24 @@
     </div>
   </header>
 
-  <!-- MAIN CONTENT using your latest-section + card-slider style -->
   <main>
+    <!-- SLIDER 1: RESEARCH POSTERS -->
     <section class="latest-section">
+      <div class="section-label">Section 1</div>
       <h1 class="headline">
-        Latest <span class="headline-accent">Research & Poster Showcase</span>
+        Research <span class="headline-accent">Posters</span>
       </h1>
       <p class="headline-sub">
-        Click any card to view the full poster as a PDF, download it, or open
-        the corresponding journal article when available.
+        Posters presented at academic and professional meetings, highlighting laboratory and clinical research.
       </p>
 
       <div class="card-slider">
-        <button class="slider-arrow left" type="button" onclick="scrollCards(-1)">
+        <button class="slider-arrow left" type="button" onclick="scrollCards('posterTrack', -1)">
           <span>‹</span>
         </button>
 
         <div class="card-track" id="posterTrack">
-          <!-- 🔵 Poster 1 -->
+          <!-- Poster 1 -->
           <article class="product-card">
             <div class="product-tag">2023 · Research Poster</div>
             <h2 class="product-title">
@@ -393,7 +401,7 @@
             </div>
           </article>
 
-          <!-- 🔵 Poster 2 -->
+          <!-- Poster 2 -->
           <article class="product-card">
             <div class="product-tag">2019 · Research Poster</div>
             <h2 class="product-title">
@@ -435,7 +443,7 @@
             </div>
           </article>
 
-          <!-- 🔵 Poster 3 -->
+          <!-- Poster 3 -->
           <article class="product-card">
             <div class="product-tag">2024–2025 · Pharmacogenomics</div>
             <h2 class="product-title">
@@ -478,8 +486,31 @@
               </a>
             </div>
           </article>
+        </div>
 
-          <!-- 🔵 Poster 4 -->
+        <button class="slider-arrow right" type="button" onclick="scrollCards('posterTrack', 1)">
+          <span>›</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SLIDER 2: JOURNAL ARTICLES -->
+    <section class="latest-section">
+      <div class="section-label">Section 2</div>
+      <h1 class="headline">
+        Journal <span class="headline-accent">Articles & Publications</span>
+      </h1>
+      <p class="headline-sub">
+        Peer-reviewed publications with links to full-text articles and companion poster PDFs.
+      </p>
+
+      <div class="card-slider">
+        <button class="slider-arrow left" type="button" onclick="scrollCards('journalTrack', -1)">
+          <span>‹</span>
+        </button>
+
+        <div class="card-track" id="journalTrack">
+          <!-- Journal 1 (Telmisartan / MASLD) -->
           <article class="product-card">
             <div class="product-tag">2025 · Published Article</div>
             <h2 class="product-title">
@@ -499,6 +530,7 @@
               />
             </div>
             <div class="poster-tags">
+              <span class="tag">Journal Article</span>
               <span class="tag">Research</span>
             </div>
             <div class="product-actions">
@@ -530,7 +562,7 @@
             </div>
           </article>
 
-          <!-- 🔵 Poster 5 -->
+          <!-- Journal 2 (SGLT2 systematic review) -->
           <article class="product-card">
             <div class="product-tag">2025 · Systematic Review</div>
             <h2 class="product-title">
@@ -550,7 +582,8 @@
               />
             </div>
             <div class="poster-tags">
-              <span class="tag">Research</span>
+              <span class="tag">Journal Article</span>
+              <span class="tag">Systematic Review</span>
             </div>
             <div class="product-actions">
               <a
@@ -572,7 +605,7 @@
               </a>
               <a
                 class="btn btn-ghost"
-                href="https://ajprui.com/index.php/ajpr/article/view/512"
+                href="https://doi.org/10.69980/ajpr.v28i5.512"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -582,7 +615,7 @@
           </article>
         </div>
 
-        <button class="slider-arrow right" type="button" onclick="scrollCards(1)">
+        <button class="slider-arrow right" type="button" onclick="scrollCards('journalTrack', 1)">
           <span>›</span>
         </button>
       </div>
@@ -598,9 +631,9 @@
     // auto-update year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // simple horizontal scroll for slider, matching your theme behavior
-    function scrollCards(direction) {
-      const track = document.getElementById("posterTrack");
+    // Scroll function reused for both sliders
+    function scrollCards(trackId, direction) {
+      const track = document.getElementById(trackId);
       if (!track) return;
       const card = track.querySelector(".product-card");
       const amount = card ? card.offsetWidth + 22 : 300;
@@ -612,3 +645,4 @@
   </script>
 </body>
 </html>
+
