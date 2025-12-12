@@ -119,7 +119,7 @@
       line-height: 1.4;
     }
 
-    /* ---------- TABS (POSTERS / JOURNALS) ---------- */
+    /* ---------- TABS (JOURNALS / POSTERS) ---------- */
 
     .tab-row {
       padding: 10px 0 16px;
@@ -451,20 +451,145 @@
     <!-- TABS -->
     <div class="tab-row">
       <div class="tab-inner">
-        <button class="tab-pill active" type="button" onclick="scrollToSection('posters')">
-          <span class="icon">📊</span>
-          Posters
-        </button>
-        <button class="tab-pill" type="button" onclick="scrollToSection('journals')">
+        <button class="tab-pill active" type="button" onclick="scrollToSection('journals')">
           <span class="icon">📚</span>
           Journals
+        </button>
+        <button class="tab-pill" type="button" onclick="scrollToSection('posters')">
+          <span class="icon">📊</span>
+          Posters
         </button>
       </div>
     </div>
 
-    <!-- SECTION 1: POSTERS -->
+    <!-- SECTION 1: JOURNALS (TOP) -->
+    <section class="section-block" id="journals">
+      <div class="section-label">Section 1 · Journals</div>
+      <h1 class="headline">
+        Journal <span class="headline-accent">Articles & Publications</span>
+      </h1>
+      <p class="headline-sub">
+        Peer-reviewed manuscripts with links to full-text articles and companion posters where available.
+      </p>
+
+      <div class="card-slider">
+        <button class="slider-arrow left" type="button" onclick="scrollCards('journalTrack', -1)">
+          <span>‹</span>
+        </button>
+
+        <div class="card-track" id="journalTrack">
+          <!-- Journal 1 -->
+          <article class="product-card">
+            <div class="product-tag">2025 · Published Article</div>
+            <h2 class="product-title">
+              Telmisartan Targets Nrf2–HO-1 Axis in MASLD Modulating Oxidative Stress, Inflammation, and
+              Mitochondrial Dysfunction: Mechanistic Insights
+            </h2>
+            <div class="product-meta">
+              <span>Libyan Journal of Medicine</span>
+              <span>2025 · DOI: 10.1080/19932820.2025.2585617</span>
+            </div>
+            <div class="product-image-wrap">
+              <img
+                src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg"
+                alt="Cover: Libyan Journal of Medicine article on telmisartan in MASLD"
+                loading="lazy"
+              />
+            </div>
+            <div class="poster-tags">
+              <span class="tag">Journal Article</span>
+              <span class="tag">Research</span>
+            </div>
+            <div class="product-actions">
+              <a
+                class="btn btn-primary"
+                href="Poster%204.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PDF
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="Poster%204.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                Download
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="https://www.tandfonline.com/doi/full/10.1080/19932820.2025.2585617"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Journal article
+              </a>
+            </div>
+          </article>
+
+          <!-- Journal 2 -->
+          <article class="product-card">
+            <div class="product-tag">2025 · Systematic Review</div>
+            <h2 class="product-title">
+              The Clinical Impact of SGLT2 Inhibitors in Patients with and without
+              Type 2 Diabetes: Systematic Review
+            </h2>
+            <div class="product-meta">
+              <span>American Journal of Psychiatric Rehabilitation</span>
+              <span>Vol. 28, Issue 5 (2025) · DOI: 10.69980/ajpr.v28i5.512</span>
+            </div>
+            <div class="product-image-wrap">
+              <img
+                src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg"
+                alt="Cover: Systematic review on SGLT2 inhibitors with and without type 2 diabetes"
+                loading="lazy"
+              />
+            </div>
+            <div class="poster-tags">
+              <span class="tag">Journal Article</span>
+              <span class="tag">Systematic Review</span>
+            </div>
+            <div class="product-actions">
+              <a
+                class="btn btn-primary"
+                href="Poster%205.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PDF
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="Poster%205.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                Download
+              </a>
+              <a
+                class="btn btn-ghost"
+                href="https://doi.org/10.69980/ajpr.v28i5.512"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Journal article
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <button class="slider-arrow right" type="button" onclick="scrollCards('journalTrack', 1)">
+          <span>›</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 2: POSTERS (BOTTOM) -->
     <section class="section-block" id="posters">
-      <div class="section-label">Section 1 · Posters</div>
+      <div class="section-label">Section 2 · Posters</div>
       <h1 class="headline">
         Research <span class="headline-accent">Posters</span>
       </h1>
@@ -611,131 +736,6 @@
       </div>
     </section>
 
-    <!-- SECTION 2: JOURNALS -->
-    <section class="section-block" id="journals">
-      <div class="section-label">Section 2 · Journals</div>
-      <h1 class="headline">
-        Journal <span class="headline-accent">Articles & Publications</span>
-      </h1>
-      <p class="headline-sub">
-        Peer-reviewed manuscripts with links to full-text articles and companion posters where available.
-      </p>
-
-      <div class="card-slider">
-        <button class="slider-arrow left" type="button" onclick="scrollCards('journalTrack', -1)">
-          <span>‹</span>
-        </button>
-
-        <div class="card-track" id="journalTrack">
-          <!-- Journal 1 -->
-          <article class="product-card">
-            <div class="product-tag">2025 · Published Article</div>
-            <h2 class="product-title">
-              Telmisartan Targets Nrf2–HO-1 Axis in MASLD Modulating Oxidative Stress, Inflammation, and
-              Mitochondrial Dysfunction: Mechanistic Insights
-            </h2>
-            <div class="product-meta">
-              <span>Libyan Journal of Medicine</span>
-              <span>2025 · DOI: 10.1080/19932820.2025.2585617</span>
-            </div>
-            <div class="product-image-wrap">
-              <img
-                src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg"
-                alt="Cover: Libyan Journal of Medicine article on telmisartan in MASLD"
-                loading="lazy"
-              />
-            </div>
-            <div class="poster-tags">
-              <span class="tag">Journal Article</span>
-              <span class="tag">Research</span>
-            </div>
-            <div class="product-actions">
-              <a
-                class="btn btn-primary"
-                href="Poster%204.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PDF
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="Poster%204.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-              >
-                Download
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="https://www.tandfonline.com/doi/full/10.1080/19932820.2025.2585617"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Journal article
-              </a>
-            </div>
-          </article>
-
-          <!-- Journal 2 -->
-          <article class="product-card">
-            <div class="product-tag">2025 · Systematic Review</div>
-            <h2 class="product-title">
-              The Clinical Impact of SGLT2 Inhibitors in Patients with and without
-              Type 2 Diabetes: Systematic Review
-            </h2>
-            <div class="product-meta">
-              <span>American Journal of Psychiatric Rehabilitation</span>
-              <span>Vol. 28, Issue 5 (2025) · DOI: 10.69980/ajpr.v28i5.512</span>
-            </div>
-            <div class="product-image-wrap">
-              <img
-                src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg"
-                alt="Cover: Systematic review on SGLT2 inhibitors with and without type 2 diabetes"
-                loading="lazy"
-              />
-            </div>
-            <div class="poster-tags">
-              <span class="tag">Journal Article</span>
-              <span class="tag">Systematic Review</span>
-            </div>
-            <div class="product-actions">
-              <a
-                class="btn btn-primary"
-                href="Poster%205.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PDF
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="Poster%205.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-              >
-                Download
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="https://doi.org/10.69980/ajpr.v28i5.512"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Journal article
-              </a>
-            </div>
-          </article>
-        </div>
-
-        <button class="slider-arrow right" type="button" onclick="scrollCards('journalTrack', 1)">
-          <span>›</span>
-        </button>
-      </div>
-    </section>
-
     <footer>
       © <span id="year"></span> Alhamza Hamza · Hosted on
       <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -762,9 +762,9 @@
 
       const tabs = document.querySelectorAll(".tab-pill");
       tabs.forEach(t => t.classList.remove("active"));
-      if (id === "posters") {
+      if (id === "journals") {
         tabs[0]?.classList.add("active");
-      } else if (id === "journals") {
+      } else if (id === "posters") {
         tabs[1]?.classList.add("active");
       }
     }
