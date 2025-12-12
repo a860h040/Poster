@@ -270,7 +270,7 @@
         transform 0.14s ease,
         box-shadow 0.14s ease,
         border-color 0.14s ease;
-      /* ✅ show full two cards on desktop */
+      /* two full cards on desktop */
       flex: 0 0 calc(50% - 11px);
       max-width: calc(50% - 11px);
     }
@@ -281,7 +281,6 @@
       border-color: rgba(0, 113, 227, 0.35);
     }
 
-    /* On tablets/phones go back to single wide card */
     @media (max-width: 900px) {
       .product-card {
         flex: 0 0 min(360px, 78vw);
@@ -315,7 +314,7 @@
       margin: 0 2px;
     }
 
-    /* ✅ poster area – white background, thin border (no gray box look) */
+    /* poster image area: solid white, no hover movement */
     .product-image-wrap {
       position: relative;
       margin-top: 6px;
@@ -331,27 +330,6 @@
       height: 220px;
       object-fit: contain;
       display: block;
-      transform: translateY(0);
-      transition: transform 0.25s ease;
-    }
-
-    .product-card:hover .product-image-wrap img {
-      transform: translateY(-2px);
-    }
-
-    .poster-badge {
-      position: absolute;
-      left: 12px;
-      top: 10px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: rgba(17, 24, 39, 0.9);
-      color: #f9fafb;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.7);
     }
 
     .poster-tags {
@@ -465,7 +443,7 @@
     .slider-arrow:hover {
       background: #f3f4f6;
       transform: translateY(-50%) scale(1.04);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 12px 32pxrgba(0, 0, 0, 0.25);
     }
 
     .slider-arrow:active {
@@ -564,7 +542,6 @@
                   <span>Lawrence, Kansas</span>
                 </div>
                 <div class="product-image-wrap">
-                  <span class="poster-badge">2023</span>
                   <img
                     src="https://raw.githubusercontent.com/a860h040/Poster/main/1.jpg"
                     alt="Poster: Structurally diverse indoles and monosaccharides on U2OS morphology via cell painting assay"
@@ -606,7 +583,6 @@
                   <span>Lawrence, Kansas</span>
                 </div>
                 <div class="product-image-wrap">
-                  <span class="poster-badge">2019</span>
                   <img
                     src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg"
                     alt="Poster: Effect of D(+)-maltose and curry on glycogen phosphorylase b"
@@ -650,7 +626,6 @@
                   <span>Lawrence, Kansas</span>
                 </div>
                 <div class="product-image-wrap">
-                  <span class="poster-badge">2024–2025</span>
                   <img
                     src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg"
                     alt="Poster: DPYD pharmacogenomic testing for 5-fluorouracil dosing"
@@ -716,7 +691,6 @@
                   <span>2025 · DOI: 10.1080/19932820.2025.2585617</span>
                 </div>
                 <div class="product-image-wrap">
-                  <span class="poster-badge">2025</span>
                   <img
                     src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg"
                     alt="Poster: Telmisartan targets Nrf2-HO-1 axis in MASLD"
@@ -768,7 +742,6 @@
                   <span>Vol. 28, Issue 5 (2025) · DOI: 10.69980/ajpr.v28i5.512</span>
                 </div>
                 <div class="product-image-wrap">
-                  <span class="poster-badge">2025</span>
                   <img
                     src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg"
                     alt="Poster: Clinical impact of SGLT2 inhibitors in patients with and without type 2 diabetes"
@@ -852,3 +825,4 @@
   </script>
 </body>
 </html>
+
