@@ -122,7 +122,7 @@
     .poster-thumb {
       position: relative;
       width: 100%;
-      height: 220px; /* adjust if you want bigger/smaller */
+      height: 220px;
       background: #f3f4f6;
       display: flex;
       justify-content: center;
@@ -133,12 +133,12 @@
     .poster-thumb img {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* show full image */
+      object-fit: contain;
       transition: transform 0.18s ease;
     }
 
     .poster-card:hover .poster-thumb img {
-      transform: none; /* no zoom on hover */
+      transform: none;
     }
 
     .badge {
@@ -174,6 +174,12 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
+    }
+
+    .poster-meta span + span::before {
+      content: "• ";
+      margin-right: 3px;
+      color: rgba(148, 163, 184, 0.9);
     }
 
     .poster-tags {
@@ -287,7 +293,8 @@
         <div class="poster-thumb">
           <img
             src="https://raw.githubusercontent.com/a860h040/Poster/main/1.jpg"
-            alt="Poster 1 thumbnail"
+            alt="Poster: Structurally diverse indoles and monosaccharides on U2OS morphology via cell painting assay"
+            loading="lazy"
           />
           <span class="badge">2023</span>
         </div>
@@ -316,6 +323,7 @@
               href="Poster%201.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              download
             >
               Download
             </a>
@@ -328,13 +336,14 @@
         <div class="poster-thumb">
           <img
             src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg"
-            alt="Poster 2 thumbnail"
+            alt="Poster: Effect of D(+)-maltose and curry on glycogen phosphorylase b"
+            loading="lazy"
           />
           <span class="badge">2019</span>
         </div>
         <div class="poster-body">
           <h2 class="poster-title">
-            The Effect of D(+)maltose and Curry on Glycogen Phosphorylase b
+            The Effect of D(+)-Maltose and Curry on Glycogen Phosphorylase b
           </h2>
           <div class="poster-meta">
             <span>KU Research Symposium</span>
@@ -357,6 +366,7 @@
               href="Poster%202.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              download
             >
               Download
             </a>
@@ -369,7 +379,8 @@
         <div class="poster-thumb">
           <img
             src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg"
-            alt="Poster 3 thumbnail"
+            alt="Poster: DPYD pharmacogenomic testing for 5-fluorouracil dosing"
+            loading="lazy"
           />
           <span class="badge">2024–2025</span>
         </div>
@@ -400,6 +411,7 @@
               href="Poster%203.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              download
             >
               Download
             </a>
@@ -412,17 +424,19 @@
         <div class="poster-thumb">
           <img
             src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg"
-            alt="Poster 4 thumbnail"
+            alt="Poster: Telmisartan targets Nrf2-HO1 axis in MASLD"
+            loading="lazy"
           />
           <span class="badge">2025</span>
         </div>
         <div class="poster-body">
           <h2 class="poster-title">
-            Telmisartan targets Nrf2-HO1 axis in MASLD modulating oxidative stress, inflammation, and
-            mitochondrial dysfunction: mechanistic insights
+            Telmisartan Targets Nrf2–HO-1 Axis in MASLD Modulating Oxidative Stress, Inflammation, and
+            Mitochondrial Dysfunction: Mechanistic Insights
           </h2>
           <div class="poster-meta">
             <span>Libyan Journal of Medicine</span>
+            <span>2025 · DOI: 10.1080/19932820.2025.2585617</span>
           </div>
           <div class="poster-tags">
             <span class="tag">Research</span>
@@ -441,8 +455,17 @@
               href="Poster%204.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              download
             >
               Download
+            </a>
+            <a
+              class="btn btn-ghost"
+              href="https://www.tandfonline.com/doi/full/10.1080/19932820.2025.2585617"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Journal article
             </a>
           </div>
         </div>
@@ -453,7 +476,8 @@
         <div class="poster-thumb">
           <img
             src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg"
-            alt="Poster 5 thumbnail"
+            alt="Poster: Clinical impact of SGLT2 inhibitors in patients with and without type 2 diabetes"
+            loading="lazy"
           />
           <span class="badge">2025</span>
         </div>
@@ -464,6 +488,7 @@
           </h2>
           <div class="poster-meta">
             <span>American Journal of Psychiatric Rehabilitation</span>
+            <span>Vol. 28, Issue 5 (2025) · DOI: 10.69980/ajpr.v28i5.512</span>
           </div>
           <div class="poster-tags">
             <span class="tag">Research</span>
@@ -482,8 +507,17 @@
               href="Poster%205.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              download
             >
               Download
+            </a>
+            <a
+              class="btn btn-ghost"
+              href="https://doi.org/10.69980/ajpr.v28i5.512"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Journal article
             </a>
           </div>
         </div>
