@@ -17,39 +17,21 @@
       --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.08);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
       background: var(--bg);
       color: var(--text-main);
       min-height: 100vh;
     }
 
-    a {
-      color: var(--accent-blue);
-      text-decoration: none;
-    }
+    a { color: var(--accent-blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* ---------- PAGE SHELL ---------- */
-
-    .page {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 32px 16px 40px;
-    }
+    .page { max-width: 1160px; margin: 0 auto; padding: 32px 16px 40px; }
 
     /* ---------- HEADER ---------- */
-
     .store-header {
       padding-bottom: 20px;
       border-bottom: 1px solid #e5e7eb;
@@ -59,11 +41,7 @@
       gap: 1.75rem;
     }
 
-    .store-left {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .store-left { display: flex; flex-direction: column; gap: 8px; }
 
     .eyebrow-pill {
       display: inline-flex;
@@ -79,12 +57,7 @@
       border: 1px solid #e5e7eb;
     }
 
-    .eyebrow-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--accent-green);
-    }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--accent-green); }
 
     .store-logo {
       font-size: clamp(1.9rem, 3vw, 2.5rem);
@@ -109,18 +82,70 @@
       max-width: 360px;
     }
 
-    .store-right p:first-child {
-      font-weight: 600;
-      margin-bottom: 4px;
+    .store-right p:first-child { font-weight: 600; margin-bottom: 4px; }
+    .store-right p:last-child { color: var(--text-sub); line-height: 1.4; }
+
+    /* ---------- INFORMATICS PROJECT CIRCLES (3x BIGGER) ---------- */
+    .projects-strip { padding: 14px 0 12px; border-bottom: 1px solid #e5e7eb; }
+
+    .projects-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
     }
 
-    .store-right p:last-child {
+    .projects-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
       color: var(--text-sub);
-      line-height: 1.4;
     }
 
-    /* ---------- TABS (JOURNALS / POSTERS) ---------- */
+    .projects-hint { font-size: 0.82rem; color: var(--text-sub); }
 
+    .projects-row {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      padding: 6px 4px 14px;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+    .projects-row::-webkit-scrollbar { height: 0; }
+
+    .project-item { flex: 0 0 auto; width: 280px; text-align: center; }
+
+    .project-circle {
+      width: 234px;
+      height: 234px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0 auto;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      position: relative;
+    }
+
+    .project-circle img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .project-circle:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+      border-color: #bfdbfe;
+      text-decoration: none;
+    }
+
+    .project-label { margin-top: 12px; font-size: 1.05rem; color: var(--text-main); line-height: 1.2; font-weight: 700; }
+    .project-sub { margin-top: 6px; font-size: 0.95rem; color: var(--text-sub); line-height: 1.2; }
+
+    /* ---------- TABS ---------- */
     .tab-row {
       padding: 10px 0 16px;
       border-bottom: 1px solid #e5e7eb;
@@ -149,13 +174,10 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background 0.15s ease, color 0.15s ease,
-        box-shadow 0.15s ease, transform 0.1s ease;
+      transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
     }
 
-    .tab-pill span.icon {
-      font-size: 1rem;
-    }
+    .tab-pill span.icon { font-size: 1rem; }
 
     .tab-pill.active {
       background: #ffffff;
@@ -163,16 +185,10 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
       transform: translateY(-0.5px);
     }
-
-    .tab-pill:hover {
-      transform: translateY(-0.5px);
-    }
+    .tab-pill:hover { transform: translateY(-0.5px); }
 
     /* ---------- SECTIONS ---------- */
-
-    .section-block {
-      padding: 22px 0 26px;
-    }
+    .section-block { padding: 22px 0 26px; }
 
     .section-label {
       font-size: 0.78rem;
@@ -182,15 +198,8 @@
       margin-bottom: 4px;
     }
 
-    .headline {
-      font-size: clamp(1.6rem, 2.3vw, 2rem);
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .headline-accent {
-      color: var(--accent-blue);
-    }
+    .headline { font-size: clamp(1.6rem, 2.3vw, 2rem); font-weight: 600; margin-bottom: 6px; }
+    .headline-accent { color: var(--accent-blue); }
 
     .headline-sub {
       font-size: 0.9rem;
@@ -199,17 +208,10 @@
       line-height: 1.5;
     }
 
-    .section-block + .section-block {
-      border-top: 1px dashed #e5e7eb;
-      margin-top: 4px;
-    }
+    .section-block + .section-block { border-top: 1px dashed #e5e7eb; margin-top: 4px; }
 
     /* ---------- SLIDER + CARDS ---------- */
-
-    .card-slider {
-      position: relative;
-      margin-top: 18px;
-    }
+    .card-slider { position: relative; margin-top: 18px; }
 
     .card-track {
       display: flex;
@@ -219,14 +221,11 @@
       scroll-behavior: smooth;
       scroll-snap-type: x mandatory;
     }
-
-    .card-track::-webkit-scrollbar {
-      height: 0; /* hide scrollbar */
-    }
+    .card-track::-webkit-scrollbar { height: 0; }
 
     .product-card {
       scroll-snap-align: start;
-      flex: 0 0 calc(50% - 10px);  /* show two full cards */
+      flex: 0 0 calc(50% - 10px);
       max-width: calc(50% - 10px);
       background: var(--card-bg);
       border-radius: var(--radius-large);
@@ -236,8 +235,7 @@
       flex-direction: column;
       justify-content: space-between;
       border: 1px solid #e5e7eb;
-      transition: transform 0.15s ease, box-shadow 0.15s ease,
-        border-color 0.15s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
     }
 
     .product-card:hover {
@@ -247,37 +245,14 @@
     }
 
     @media (max-width: 900px) {
-      .product-card {
-        flex: 0 0 min(360px, 82vw);
-        max-width: min(360px, 82vw);
-      }
+      .product-card { flex: 0 0 min(360px, 82vw); max-width: min(360px, 82vw); }
     }
 
-    .product-tag {
-      font-size: 0.8rem;
-      color: var(--accent-blue);
-      margin-bottom: 4px;
-      font-weight: 500;
-    }
+    .product-tag { font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 4px; font-weight: 500; }
+    .product-title { font-size: 1.02rem; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
 
-    .product-title {
-      font-size: 1.02rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-      line-height: 1.4;
-    }
-
-    .product-meta {
-      font-size: 0.85rem;
-      color: var(--text-sub);
-      margin-bottom: 8px;
-      line-height: 1.45;
-    }
-
-    .product-meta span + span::before {
-      content: " • ";
-      margin: 0 2px;
-    }
+    .product-meta { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 8px; line-height: 1.45; }
+    .product-meta span + span::before { content: " • "; margin: 0 2px; }
 
     .product-image-wrap {
       margin-top: 8px;
@@ -288,25 +263,11 @@
       padding: 10px 12px;
     }
 
-    .product-image-wrap img {
-      width: 100%;
-      height: 220px;
-      object-fit: contain;
-      display: block;
-    }
+    .product-image-wrap img { width: 100%; height: 220px; object-fit: contain; display: block; }
 
-    .placeholder-text {
-      font-size: 0.85rem;
-      color: var(--text-sub);
-      padding: 6px 2px;
-    }
+    .placeholder-text { font-size: 0.85rem; color: var(--text-sub); padding: 6px 2px; }
 
-    .poster-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 9px;
-    }
+    .poster-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
 
     .tag {
       font-size: 0.75rem;
@@ -317,12 +278,7 @@
       border: 1px solid rgba(37, 99, 235, 0.35);
     }
 
-    .product-actions {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .product-actions { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
 
     .btn {
       border-radius: var(--radius-pill);
@@ -335,9 +291,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background 0.16s ease, color 0.16s ease,
-        border-color 0.16s ease, transform 0.08s ease,
-        box-shadow 0.16s ease;
+      transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease, transform 0.08s ease, box-shadow 0.16s ease;
       white-space: nowrap;
     }
 
@@ -356,11 +310,7 @@
       text-decoration: none;
     }
 
-    .btn-ghost {
-      background: #ffffff;
-      color: var(--text-sub);
-      border-color: #d1d5db;
-    }
+    .btn-ghost { background: #ffffff; color: var(--text-sub); border-color: #d1d5db; }
 
     .btn-ghost:hover {
       border-color: var(--accent-blue);
@@ -371,7 +321,6 @@
     }
 
     /* ---------- SLIDER ARROWS ---------- */
-
     .slider-arrow {
       position: absolute;
       top: 50%;
@@ -386,23 +335,13 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: background 0.18s ease, transform 0.12s ease,
-        box-shadow 0.18s ease, border-color 0.18s ease;
+      transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease, border-color 0.18s ease;
       z-index: 5;
     }
 
-    .slider-arrow span {
-      font-size: 1.15rem;
-      line-height: 1;
-    }
-
-    .slider-arrow.left {
-      left: -12px;
-    }
-
-    .slider-arrow.right {
-      right: -12px;
-    }
+    .slider-arrow span { font-size: 1.15rem; line-height: 1; }
+    .slider-arrow.left { left: -12px; }
+    .slider-arrow.right { right: -12px; }
 
     .slider-arrow:hover {
       background: #f3f4f6;
@@ -411,18 +350,11 @@
       border-color: #9ca3af;
     }
 
-    .slider-arrow:active {
-      transform: translateY(-50%) scale(0.95);
-    }
+    .slider-arrow:active { transform: translateY(-50%) scale(0.95); }
 
-    @media (max-width: 768px) {
-      .slider-arrow {
-        display: none;
-      }
-    }
+    @media (max-width: 768px) { .slider-arrow { display: none; } }
 
     /* ---------- FOOTER ---------- */
-
     footer {
       padding-top: 10px;
       border-top: 1px solid #e5e7eb;
@@ -433,6 +365,7 @@
     }
   </style>
 </head>
+
 <body>
   <main class="page">
     <!-- HEADER -->
@@ -453,34 +386,37 @@
       </div>
     </header>
 
+    <!-- INFORMATICS PROJECT CIRCLES -->
+    <section class="projects-strip" aria-label="Informatics projects">
+      <div class="projects-head">
+        <div class="projects-title">Informatics Projects</div>
+        <div class="projects-hint">Click an icon to open the project</div>
+      </div>
+      <div class="projects-row" id="informaticsRow"></div>
+    </section>
+
     <!-- TABS -->
     <div class="tab-row">
       <div class="tab-inner">
         <button class="tab-pill active" type="button" onclick="scrollToSection('journals')">
-          <span class="icon">📚</span>
-          Journals
+          <span class="icon">📚</span> Journals
         </button>
         <button class="tab-pill" type="button" onclick="scrollToSection('posters')">
-          <span class="icon">📊</span>
-          Posters
+          <span class="icon">📊</span> Posters
         </button>
       </div>
     </div>
 
-    <!-- SECTION 1: JOURNALS (TOP) -->
+    <!-- SECTION 1: JOURNALS -->
     <section class="section-block" id="journals">
       <div class="section-label">Section 1 · Journals & Manuscripts</div>
-      <h1 class="headline">
-        Journal <span class="headline-accent">Articles & Manuscripts</span>
-      </h1>
+      <h1 class="headline">Journal <span class="headline-accent">Articles & Manuscripts</span></h1>
       <p class="headline-sub">
         Peer-reviewed publications, accepted manuscripts, and works under review where I serve as a co-author.
       </p>
 
       <div class="card-slider">
-        <button class="slider-arrow left" type="button" onclick="scrollCards('journalTrack', -1)">
-          <span>‹</span>
-        </button>
+        <button class="slider-arrow left" type="button" onclick="scrollCards('journalTrack', -1)"><span>‹</span></button>
 
         <div class="card-track" id="journalTrack">
           <!-- Journal 1 -->
@@ -489,316 +425,120 @@
             <h2 class="product-title">
               Telmisartan targets Nrf2-HO1 axis in MASLD modulating oxidative stress, inflammation, and mitochondrial dysfunction: mechanistic insights
             </h2>
-            <div class="product-meta">
-              <span>Libyan Journal of Medicine</span>
-              <span>2025</span>
-            </div>
+            <div class="product-meta"><span>Libyan Journal of Medicine</span><span>2025</span></div>
             <div class="product-image-wrap">
-              <img
-                src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg"
-                alt="Libyan Journal of Medicine article on telmisartan in MASLD"
-                loading="lazy"
-              />
+              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg" alt="Libyan Journal of Medicine article on telmisartan in MASLD" loading="lazy" />
             </div>
-            <div class="poster-tags">
-              <span class="tag">Peer-Reviewed</span>
-              <span class="tag">Co-Author</span>
-            </div>
+            <div class="poster-tags"><span class="tag">Peer-Reviewed</span><span class="tag">Co-Author</span></div>
             <div class="product-actions">
-              <a
-                class="btn btn-primary"
-                href="Poster%204.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PDF
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="Poster%204.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-              >
-                Download
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="https://www.tandfonline.com/doi/full/10.1080/19932820.2025.2585617"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Journal article
-              </a>
+              <a class="btn btn-primary" href="Poster%204.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
+              <a class="btn btn-ghost" href="Poster%204.pdf" target="_blank" rel="noopener noreferrer" download>Download</a>
+              <a class="btn btn-ghost" href="https://www.tandfonline.com/doi/full/10.1080/19932820.2025.2585617" target="_blank" rel="noopener noreferrer">Journal article</a>
             </div>
           </article>
 
           <!-- Journal 2 -->
           <article class="product-card">
             <div class="product-tag">2025 · Peer-Reviewed Publication</div>
-            <h2 class="product-title">
-              The Clinical Impact of SGLT2 Inhibitors in Patients with and without Type 2 Diabetes: Systematic Review
-            </h2>
-            <div class="product-meta">
-              <span>American Journal of Psychiatric Rehabilitation</span>
-              <span>2025</span>
-            </div>
+            <h2 class="product-title">The Clinical Impact of SGLT2 Inhibitors in Patients with and without Type 2 Diabetes: Systematic Review</h2>
+            <div class="product-meta"><span>American Journal of Psychiatric Rehabilitation</span><span>2025</span></div>
             <div class="product-image-wrap">
-              <img
-                src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg"
-                alt="Systematic review on SGLT2 inhibitors with and without type 2 diabetes"
-                loading="lazy"
-              />
+              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg" alt="Systematic review on SGLT2 inhibitors with and without type 2 diabetes" loading="lazy" />
             </div>
-            <div class="poster-tags">
-              <span class="tag">Peer-Reviewed</span>
-              <span class="tag">Systematic Review</span>
-              <span class="tag">Co-Author</span>
-            </div>
+            <div class="poster-tags"><span class="tag">Peer-Reviewed</span><span class="tag">Systematic Review</span><span class="tag">Co-Author</span></div>
             <div class="product-actions">
-              <a
-                class="btn btn-primary"
-                href="Poster%205.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PDF
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="Poster%205.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-              >
-                Download
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="https://ajprui.com/index.php/ajpr/article/view/512"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Journal article
-              </a>
+              <a class="btn btn-primary" href="Poster%205.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
+              <a class="btn btn-ghost" href="Poster%205.pdf" target="_blank" rel="noopener noreferrer" download>Download</a>
+              <a class="btn btn-ghost" href="https://ajprui.com/index.php/ajpr/article/view/512" target="_blank" rel="noopener noreferrer">Journal article</a>
             </div>
           </article>
 
           <!-- Journal 3 – In Press -->
           <article class="product-card">
             <div class="product-tag">In Press · Co-Author</div>
-            <h2 class="product-title">
-              Genetic determinants of biofilm formation and antibiotic response in <em>Pseudomonas aeruginosa</em>
-            </h2>
-            <div class="product-meta">
-              <span>Manuscript accepted</span>
-              <span>In press</span>
-            </div>
-            <div class="product-image-wrap">
-              <div class="placeholder-text">
-                Full citation and journal link will be added once the article is published.
-              </div>
-            </div>
-            <div class="poster-tags">
-              <span class="tag">In Press</span>
-              <span class="tag">Co-Author</span>
-            </div>
+            <h2 class="product-title">Genetic determinants of biofilm formation and antibiotic response in <em>Pseudomonas aeruginosa</em></h2>
+            <div class="product-meta"><span>Manuscript accepted</span><span>In press</span></div>
+            <div class="product-image-wrap"><div class="placeholder-text">Full citation and journal link will be added once the article is published.</div></div>
+            <div class="poster-tags"><span class="tag">In Press</span><span class="tag">Co-Author</span></div>
           </article>
 
           <!-- Journal 4 – Under Review ESPR5 -->
           <article class="product-card">
             <div class="product-tag">Under Review · Co-Author</div>
-            <h2 class="product-title">
-              Emerging applications of marine-bacterial exopolysaccharide ESPR5 from <em>Kocuria</em> sp. AG5
-            </h2>
-            <div class="product-meta">
-              <span>Manuscript under peer review</span>
-            </div>
-            <div class="product-image-wrap">
-              <div class="placeholder-text">
-                Under review – external journal link will be added following acceptance.
-              </div>
-            </div>
-            <div class="poster-tags">
-              <span class="tag">Under Review</span>
-              <span class="tag">Co-Author</span>
-            </div>
+            <h2 class="product-title">Emerging applications of marine-bacterial exopolysaccharide ESPR5 from <em>Kocuria</em> sp. AG5</h2>
+            <div class="product-meta"><span>Manuscript under peer review</span></div>
+            <div class="product-image-wrap"><div class="placeholder-text">Under review – external journal link will be added following acceptance.</div></div>
+            <div class="poster-tags"><span class="tag">Under Review</span><span class="tag">Co-Author</span></div>
           </article>
 
           <!-- Journal 5 – Under Review JAK inhibitors -->
           <article class="product-card">
             <div class="product-tag">Under Review · Co-Author</div>
-            <h2 class="product-title">
-              Baricitinib and ruxolitinib efficacy and safety on SALT scores in autoimmune alopecia areata – systematic review and meta-analysis
-            </h2>
-            <div class="product-meta">
-              <span>Manuscript under peer review</span>
-            </div>
-            <div class="product-image-wrap">
-              <div class="placeholder-text">
-                Systematic review and meta-analysis in progress – citation will be updated upon acceptance.
-              </div>
-            </div>
-            <div class="poster-tags">
-              <span class="tag">Under Review</span>
-              <span class="tag">Systematic Review</span>
-              <span class="tag">Co-Author</span>
-            </div>
+            <h2 class="product-title">Baricitinib and ruxolitinib efficacy and safety on SALT scores in autoimmune alopecia areata – systematic review and meta-analysis</h2>
+            <div class="product-meta"><span>Manuscript under peer review</span></div>
+            <div class="product-image-wrap"><div class="placeholder-text">Systematic review and meta-analysis in progress – citation will be updated upon acceptance.</div></div>
+            <div class="poster-tags"><span class="tag">Under Review</span><span class="tag">Systematic Review</span><span class="tag">Co-Author</span></div>
           </article>
         </div>
 
-        <button class="slider-arrow right" type="button" onclick="scrollCards('journalTrack', 1)">
-          <span>›</span>
-        </button>
+        <button class="slider-arrow right" type="button" onclick="scrollCards('journalTrack', 1)"><span>›</span></button>
       </div>
     </section>
 
-    <!-- SECTION 2: POSTERS (BOTTOM) -->
+    <!-- SECTION 2: POSTERS -->
     <section class="section-block" id="posters">
       <div class="section-label">Section 2 · Posters & Projects</div>
-      <h1 class="headline">
-        Research <span class="headline-accent">Posters & Projects</span>
-      </h1>
-      <p class="headline-sub">
-        Selected posters and projects presented at research symposia and academic institutions from 2019–2025.
-      </p>
+      <h1 class="headline">Research <span class="headline-accent">Posters & Projects</span></h1>
+      <p class="headline-sub">Selected posters and projects presented at research symposia and academic institutions from 2019–2025.</p>
 
       <div class="card-slider">
-        <button class="slider-arrow left" type="button" onclick="scrollCards('posterTrack', -1)">
-          <span>‹</span>
-        </button>
+        <button class="slider-arrow left" type="button" onclick="scrollCards('posterTrack', -1)"><span>‹</span></button>
 
         <div class="card-track" id="posterTrack">
-          <!-- 2025 – DPYD / 5-FU Toxicity -->
           <article class="product-card">
             <div class="product-tag">2025 · Pharmacogenomics Poster</div>
-            <h2 class="product-title">
-              Optimizing Chemotherapy Safety: Implementing DPYD Pharmacogenomic Testing to Reduce 5-FU Toxicity
-            </h2>
-            <div class="product-meta">
-              <span>KU Research Symposium</span>
-              <span>KCHP Spring Conference</span>
-              <span>KPHA</span>
-              <span>Lawrence, Kansas</span>
-            </div>
+            <h2 class="product-title">Optimizing Chemotherapy Safety: Implementing DPYD Pharmacogenomic Testing to Reduce 5-FU Toxicity</h2>
+            <div class="product-meta"><span>KU Research Symposium</span><span>KCHP Spring Conference</span><span>KPHA</span><span>Lawrence, Kansas</span></div>
             <div class="product-image-wrap">
-              <img
-                src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg"
-                alt="Poster: DPYD pharmacogenomic testing to reduce 5-FU toxicity"
-                loading="lazy"
-              />
+              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg" alt="Poster: DPYD pharmacogenomic testing to reduce 5-FU toxicity" loading="lazy" />
             </div>
-            <div class="poster-tags">
-              <span class="tag">Pharmacogenomics</span>
-              <span class="tag">Research Poster</span>
-            </div>
+            <div class="poster-tags"><span class="tag">Pharmacogenomics</span><span class="tag">Research Poster</span></div>
             <div class="product-actions">
-              <a
-                class="btn btn-primary"
-                href="Poster%203.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PDF
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="Poster%203.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-              >
-                Download
-              </a>
+              <a class="btn btn-primary" href="Poster%203.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
+              <a class="btn btn-ghost" href="Poster%203.pdf" target="_blank" rel="noopener noreferrer" download>Download</a>
             </div>
           </article>
 
-          <!-- 2023 – Multiple Myeloma Cell Painting -->
           <article class="product-card">
             <div class="product-tag">2023 · Research Poster</div>
-            <h2 class="product-title">
-              The Effect of Structurally Diverse Indoles and Monosaccharides on Multiple Myeloma Cell Morphology via Cell Painting Assay
-            </h2>
-            <div class="product-meta">
-              <span>KU Research Symposium</span>
-              <span>Lawrence, Kansas</span>
-            </div>
+            <h2 class="product-title">The Effect of Structurally Diverse Indoles and Monosaccharides on Multiple Myeloma Cell Morphology via Cell Painting Assay</h2>
+            <div class="product-meta"><span>KU Research Symposium</span><span>Lawrence, Kansas</span></div>
             <div class="product-image-wrap">
-              <img
-                src="https://raw.githubusercontent.com/a860h040/Poster/main/1.jpg"
-                alt="Poster: Multiple myeloma cell morphology via cell painting assay"
-                loading="lazy"
-              />
+              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/1.jpg" alt="Poster: Multiple myeloma cell morphology via cell painting assay" loading="lazy" />
             </div>
-            <div class="poster-tags">
-              <span class="tag">Research Poster</span>
-            </div>
+            <div class="poster-tags"><span class="tag">Research Poster</span></div>
             <div class="product-actions">
-              <a
-                class="btn btn-primary"
-                href="Poster%201.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PDF
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="Poster%201.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-              >
-                Download
-              </a>
+              <a class="btn btn-primary" href="Poster%201.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
+              <a class="btn btn-ghost" href="Poster%201.pdf" target="_blank" rel="noopener noreferrer" download>Download</a>
             </div>
           </article>
 
-          <!-- 2019 – D(+)-Maltose & Curry -->
           <article class="product-card">
             <div class="product-tag">2019 · Research Poster</div>
-            <h2 class="product-title">
-              The Effect of D(+)-Maltose and Curry on Glycogen Phosphorylase b
-            </h2>
-            <div class="product-meta">
-              <span>KU Research Symposium</span>
-              <span>Lawrence, Kansas</span>
-            </div>
+            <h2 class="product-title">The Effect of D(+)-Maltose and Curry on Glycogen Phosphorylase b</h2>
+            <div class="product-meta"><span>KU Research Symposium</span><span>Lawrence, Kansas</span></div>
             <div class="product-image-wrap">
-              <img
-                src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg"
-                alt="Poster: Effect of D(+)-maltose and curry on glycogen phosphorylase b"
-                loading="lazy"
-              />
+              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg" alt="Poster: Effect of D(+)-maltose and curry on glycogen phosphorylase b" loading="lazy" />
             </div>
-            <div class="poster-tags">
-              <span class="tag">Research Poster</span>
-            </div>
+            <div class="poster-tags"><span class="tag">Research Poster</span></div>
             <div class="product-actions">
-              <a
-                class="btn btn-primary"
-                href="Poster%202.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PDF
-              </a>
-              <a
-                class="btn btn-ghost"
-                href="Poster%202.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-              >
-                Download
-              </a>
+              <a class="btn btn-primary" href="Poster%202.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
+              <a class="btn btn-ghost" href="Poster%202.pdf" target="_blank" rel="noopener noreferrer" download>Download</a>
             </div>
           </article>
         </div>
 
-        <button class="slider-arrow right" type="button" onclick="scrollCards('posterTrack', 1)">
-          <span>›</span>
-        </button>
+        <button class="slider-arrow right" type="button" onclick="scrollCards('posterTrack', 1)"><span>›</span></button>
       </div>
     </section>
 
@@ -809,8 +549,85 @@
   </main>
 
   <script>
-    // auto-update year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Replace img URLs with your GitHub RAW image links when ready
+    const PLACEHOLDER_IMG = "https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg";
+
+    const informaticsProjects = [
+      {
+        title: "Vancomycin + Coverage",
+        subtitle: "Clinical Calculators",
+        href: "https://sites.google.com/view/antibiotics-coverage-tool/pharmacy-tools",
+        img: PLACEHOLDER_IMG
+      },
+      {
+  title: "IV-to-PO",
+  subtitle: "Conversion Assistant",
+  href: "https://a860h040.github.io/IV-to-PO/",
+  img: "https://raw.githubusercontent.com/a860h040/IV-to-PO/main/ChatGPT%20Image%20Dec%2017%2C%202025%2C%2009_23_33%20AM.png"
+},
+
+      {
+        title: "COPD Guide",
+        subtitle: "Patient Education",
+        href: "https://a860h040.github.io/COPD/",
+        img: PLACEHOLDER_IMG
+      },
+      {
+        title: "IV Photo-Verify",
+        subtitle: "Compounding Workflow",
+        href: "https://a860h040.github.io/Showmedemo6APP/",
+        img: PLACEHOLDER_IMG
+      },
+      {
+        title: "Shelf Tracker",
+        subtitle: "Medication Tracking",
+        href: "https://a860h040.github.io/Medication-Shelf-Tracker/",
+        img: PLACEHOLDER_IMG
+      },
+      {
+        title: "Workflow Manager",
+        subtitle: "Technician Team",
+        href: "https://sites.google.com/view/workflowhospital/home",
+        img: PLACEHOLDER_IMG
+      },
+      {
+        title: "LexiEye-LIVE",
+        subtitle: "Pill Counting Camera",
+        href: "https://a860h040.github.io/lexieye-LIVE/",
+        img: PLACEHOLDER_IMG
+      },
+      {
+        title: "DPYD + 5-FU",
+        subtitle: "Risk Estimator",
+        href: "https://sites.google.com/view/dpyd-testing/home",
+        img: PLACEHOLDER_IMG
+      },
+      {
+        title: "Stockroom Locator",
+        subtitle: "Medication Locator",
+        href: "https://sites.google.com/view/olathemdc/home",
+        img: PLACEHOLDER_IMG
+      }
+    ];
+
+    function renderInformaticsCircles() {
+      const row = document.getElementById("informaticsRow");
+      if (!row) return;
+
+      row.innerHTML = informaticsProjects.map(p => `
+        <div class="project-item">
+          <a class="project-circle" href="${p.href}" target="_blank" rel="noopener noreferrer" aria-label="${p.title}">
+            <img src="${p.img}" alt="${p.title}" loading="lazy" />
+          </a>
+          <div class="project-label">${p.title}</div>
+          <div class="project-sub">${p.subtitle || ""}</div>
+        </div>
+      `).join("");
+    }
+
+    renderInformaticsCircles();
 
     function scrollCards(trackId, direction) {
       const track = document.getElementById(trackId);
@@ -828,11 +645,8 @@
 
       const tabs = document.querySelectorAll(".tab-pill");
       tabs.forEach(t => t.classList.remove("active"));
-      if (id === "journals") {
-        tabs[0]?.classList.add("active");
-      } else if (id === "posters") {
-        tabs[1]?.classList.add("active");
-      }
+      if (id === "journals") tabs[0]?.classList.add("active");
+      if (id === "posters") tabs[1]?.classList.add("active");
     }
   </script>
 </body>
