@@ -5,376 +5,256 @@
   <title>Research Gallery | Alhamza Hamza</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root {
-      --bg: #f5f5f7;
-      --card-bg: #ffffff;
-      --text-main: #1d1d1f;
-      --text-sub: #6e6e73;
-      --accent-blue: #0071e3;
-      --accent-green: #22c55e;
-      --radius-large: 26px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.08);
+    :root{
+      --bg:#f5f5f7;
+      --card-bg:#ffffff;
+      --text-main:#1d1d1f;
+      --text-sub:#6e6e73;
+      --accent-blue:#0071e3;
+      --accent-green:#22c55e;
+      --radius-large:26px;
+      --radius-pill:999px;
+      --shadow-soft:0 18px 40px rgba(0,0,0,0.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+      background:var(--bg);
+      color:var(--text-main);
+      min-height:100vh;
+    }
+    a{color:var(--accent-blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .page{max-width:1160px;margin:0 auto;padding:32px 16px 40px}
+
+    /* HEADER */
+    .store-header{
+      padding-bottom:20px;
+      border-bottom:1px solid #e5e7eb;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:1.75rem;
+    }
+    .store-left{display:flex;flex-direction:column;gap:8px}
+    .eyebrow-pill{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+      color:#4b5563;background:#f9fafb;padding:4px 11px;
+      border-radius:var(--radius-pill);border:1px solid #e5e7eb;
+    }
+    .eyebrow-dot{width:7px;height:7px;border-radius:999px;background:var(--accent-green)}
+    .store-logo{
+      font-size:clamp(1.9rem,3vw,2.5rem);
+      font-weight:700;
+      background:linear-gradient(90deg,#0071e3,#34c759);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .store-subtitle{font-size:.9rem;color:var(--text-sub);max-width:420px;line-height:1.5}
+    .store-right{text-align:right;font-size:.9rem;color:var(--text-main);max-width:360px}
+    .store-right p:first-child{font-weight:600;margin-bottom:4px}
+    .store-right p:last-child{color:var(--text-sub);line-height:1.4}
+
+    /* INFORMATICS CIRCLES */
+    .projects-strip{padding:14px 0 12px;border-bottom:1px solid #e5e7eb}
+    .projects-head{
+      display:flex;align-items:baseline;justify-content:space-between;
+      gap:12px;margin-bottom:10px
+    }
+    .projects-title{
+      font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-sub)
+    }
+    .projects-hint{font-size:.82rem;color:var(--text-sub)}
+    .projects-row{
+      display:flex;gap:18px;overflow-x:auto;padding:6px 4px 14px;
+      scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+    }
+    .projects-row::-webkit-scrollbar{height:0}
+    .project-item{flex:0 0 auto;width:280px;text-align:center}
+
+    /* 3x bigger circles */
+    .project-circle{
+      width:234px;height:234px;border-radius:50%;
+      background:#fff;border:1px solid #e5e7eb;
+      box-shadow:0 12px 26px rgba(0,0,0,.12);
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;margin:0 auto;
+      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      position:relative;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    .project-circle{
+  /* default values */
+  --img-scale: 1;
+  --img-pad: 18px;
+}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text-main);
-      min-height: 100vh;
+.project-circle img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding: var(--img-pad);
+  background:#fff;
+  display:block;
+
+  transform: scale(var(--img-scale));
+  transform-origin:center;
+}
+
+
+    .project-circle:hover{
+      transform:translateY(-2px) scale(1.04);
+      box-shadow:0 18px 34px rgba(0,0,0,.18);
+      border-color:#bfdbfe;
+      text-decoration:none;
     }
 
-    a { color: var(--accent-blue); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    .project-label{margin-top:12px;font-size:1.05rem;color:var(--text-main);line-height:1.2;font-weight:700}
+    .project-sub{margin-top:6px;font-size:.95rem;color:var(--text-sub);line-height:1.2}
 
-    .page { max-width: 1160px; margin: 0 auto; padding: 32px 16px 40px; }
+    /* fallback if image broken */
+    .project-circle .fallback{
+      position:absolute;inset:0;display:none;
+      align-items:center;justify-content:center;text-align:center;
+      padding:18px;font-weight:800;color:#fff;
+      background:linear-gradient(135deg,#0071e3,#34c759);
+    }
+    .project-circle.no-img img{display:none}
+    .project-circle.no-img .fallback{display:flex}
 
-    /* ---------- HEADER ---------- */
-    .store-header {
-      padding-bottom: 20px;
-      border-bottom: 1px solid #e5e7eb;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1.75rem;
+    /* TABS */
+    .tab-row{
+      padding:10px 0 16px;border-bottom:1px solid #e5e7eb;
+      display:flex;justify-content:center;
+    }
+    .tab-inner{
+      display:inline-flex;padding:4px;border-radius:var(--radius-pill);
+      background:#f3f4f6;border:1px solid #e5e7eb;gap:4px;
+    }
+    .tab-pill{
+      border-radius:var(--radius-pill);
+      padding:6px 16px;font-size:.82rem;font-weight:500;color:var(--text-sub);
+      cursor:pointer;border:none;background:transparent;
+      display:inline-flex;align-items:center;gap:6px;
+      transition:background .15s ease,color .15s ease,box-shadow .15s ease,transform .1s ease;
+    }
+    .tab-pill span.icon{font-size:1rem}
+    .tab-pill.active{
+      background:#fff;color:var(--accent-blue);
+      box-shadow:0 10px 25px rgba(0,0,0,.08);
+      transform:translateY(-.5px);
+    }
+    .tab-pill:hover{transform:translateY(-.5px)}
+
+    /* SECTIONS */
+    .section-block{padding:22px 0 26px}
+    .section-label{
+      font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;
+      color:var(--text-sub);margin-bottom:4px;
+    }
+    .headline{font-size:clamp(1.6rem,2.3vw,2rem);font-weight:600;margin-bottom:6px}
+    .headline-accent{color:var(--accent-blue)}
+    .headline-sub{font-size:.9rem;color:var(--text-sub);max-width:540px;line-height:1.5}
+    .section-block + .section-block{border-top:1px dashed #e5e7eb;margin-top:4px}
+
+    /* SLIDER + CARDS */
+    .card-slider{position:relative;margin-top:18px}
+    .card-track{
+      display:flex;gap:20px;overflow-x:auto;padding:6px 4px 18px;
+      scroll-behavior:smooth;scroll-snap-type:x mandatory;
+    }
+    .card-track::-webkit-scrollbar{height:0}
+    .product-card{
+      scroll-snap-align:start;
+      flex:0 0 calc(50% - 10px);max-width:calc(50% - 10px);
+      background:var(--card-bg);border-radius:var(--radius-large);
+      box-shadow:var(--shadow-soft);padding:18px 18px 16px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      border:1px solid #e5e7eb;
+      transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
+    }
+    .product-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 22px 50px rgba(0,0,0,.18);
+      border-color:#bfdbfe;
+    }
+    @media (max-width:900px){
+      .product-card{flex:0 0 min(360px,82vw);max-width:min(360px,82vw)}
+    }
+    .product-tag{font-size:.8rem;color:var(--accent-blue);margin-bottom:4px;font-weight:500}
+    .product-title{font-size:1.02rem;font-weight:600;margin-bottom:4px;line-height:1.4}
+    .product-meta{font-size:.85rem;color:var(--text-sub);margin-bottom:8px;line-height:1.45}
+    .product-meta span + span::before{content:" • ";margin:0 2px}
+
+    .product-image-wrap{
+      margin-top:8px;border-radius:18px;overflow:hidden;background:#fff;
+      border:1px solid #e5e7eb;padding:10px 12px;
+    }
+    .product-image-wrap img{width:100%;height:220px;object-fit:contain;display:block}
+    .placeholder-text{font-size:.85rem;color:var(--text-sub);padding:6px 2px}
+
+    .poster-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+    .tag{
+      font-size:.75rem;border-radius:var(--radius-pill);padding:3px 9px;
+      background:#e5edff;color:#1d4ed8;border:1px solid rgba(37,99,235,.35);
+    }
+    .product-actions{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
+
+    .btn{
+      border-radius:var(--radius-pill);
+      padding:7px 15px;font-size:.8rem;font-weight:500;
+      border:1px solid transparent;cursor:pointer;text-decoration:none;
+      display:inline-flex;align-items:center;gap:6px;
+      transition:background .16s ease,color .16s ease,border-color .16s ease,transform .08s ease,box-shadow .16s ease;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      background:var(--accent-blue);color:#fff;border-color:#0071e3;
+      box-shadow:0 10px 26px rgba(0,113,227,.35);
+    }
+    .btn-primary:hover{
+      background:#005bb9;border-color:#005bb9;transform:translateY(-1px);
+      box-shadow:0 16px 32px rgba(0,113,227,.5);text-decoration:none;
+    }
+    .btn-ghost{background:#fff;color:var(--text-sub);border-color:#d1d5db}
+    .btn-ghost:hover{
+      border-color:var(--accent-blue);color:var(--accent-blue);transform:translateY(-1px);
+      box-shadow:0 12px 28px rgba(0,0,0,.12);text-decoration:none;
     }
 
-    .store-left { display: flex; flex-direction: column; gap: 8px; }
-
-    .eyebrow-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.74rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #4b5563;
-      background: #f9fafb;
-      padding: 4px 11px;
-      border-radius: var(--radius-pill);
-      border: 1px solid #e5e7eb;
+    /* SLIDER ARROWS */
+    .slider-arrow{
+      position:absolute;top:50%;transform:translateY(-50%);
+      border-radius:50%;width:32px;height:32px;
+      border:1px solid #d1d5db;background:#fff;
+      box-shadow:0 10px 25px rgba(0,0,0,.18);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;transition:background .18s ease,transform .12s ease,box-shadow .18s ease,border-color .18s ease;
+      z-index:5;
     }
-
-    .eyebrow-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--accent-green); }
-
-    .store-logo {
-      font-size: clamp(1.9rem, 3vw, 2.5rem);
-      font-weight: 700;
-      background: linear-gradient(90deg, #0071e3, #34c759);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .slider-arrow span{font-size:1.15rem;line-height:1}
+    .slider-arrow.left{left:-12px}
+    .slider-arrow.right{right:-12px}
+    .slider-arrow:hover{
+      background:#f3f4f6;transform:translateY(-50%) scale(1.05);
+      box-shadow:0 14px 32px rgba(0,0,0,.24);border-color:#9ca3af;
     }
+    .slider-arrow:active{transform:translateY(-50%) scale(.95)}
+    @media (max-width:768px){.slider-arrow{display:none}}
 
-    .store-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-sub);
-      max-width: 420px;
-      line-height: 1.5;
-    }
-
-    .store-right {
-      text-align: right;
-      font-size: 0.9rem;
-      color: var(--text-main);
-      max-width: 360px;
-    }
-
-    .store-right p:first-child { font-weight: 600; margin-bottom: 4px; }
-    .store-right p:last-child { color: var(--text-sub); line-height: 1.4; }
-
-    /* ---------- INFORMATICS PROJECT CIRCLES (3x BIGGER) ---------- */
-    .projects-strip { padding: 14px 0 12px; border-bottom: 1px solid #e5e7eb; }
-
-    .projects-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .projects-title {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-sub);
-    }
-
-    .projects-hint { font-size: 0.82rem; color: var(--text-sub); }
-
-    .projects-row {
-      display: flex;
-      gap: 18px;
-      overflow-x: auto;
-      padding: 6px 4px 14px;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
-    .projects-row::-webkit-scrollbar { height: 0; }
-
-    .project-item { flex: 0 0 auto; width: 280px; text-align: center; }
-
-    .project-circle {
-      width: 234px;
-      height: 234px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      margin: 0 auto;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-      position: relative;
-    }
-
-    .project-circle img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .project-circle:hover {
-      transform: translateY(-2px) scale(1.04);
-      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
-      border-color: #bfdbfe;
-      text-decoration: none;
-    }
-
-    .project-label { margin-top: 12px; font-size: 1.05rem; color: var(--text-main); line-height: 1.2; font-weight: 700; }
-    .project-sub { margin-top: 6px; font-size: 0.95rem; color: var(--text-sub); line-height: 1.2; }
-
-    /* ---------- TABS ---------- */
-    .tab-row {
-      padding: 10px 0 16px;
-      border-bottom: 1px solid #e5e7eb;
-      display: flex;
-      justify-content: center;
-    }
-
-    .tab-inner {
-      display: inline-flex;
-      padding: 4px;
-      border-radius: var(--radius-pill);
-      background: #f3f4f6;
-      border: 1px solid #e5e7eb;
-      gap: 4px;
-    }
-
-    .tab-pill {
-      border-radius: var(--radius-pill);
-      padding: 6px 16px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--text-sub);
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
-    }
-
-    .tab-pill span.icon { font-size: 1rem; }
-
-    .tab-pill.active {
-      background: #ffffff;
-      color: var(--accent-blue);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      transform: translateY(-0.5px);
-    }
-    .tab-pill:hover { transform: translateY(-0.5px); }
-
-    /* ---------- SECTIONS ---------- */
-    .section-block { padding: 22px 0 26px; }
-
-    .section-label {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-sub);
-      margin-bottom: 4px;
-    }
-
-    .headline { font-size: clamp(1.6rem, 2.3vw, 2rem); font-weight: 600; margin-bottom: 6px; }
-    .headline-accent { color: var(--accent-blue); }
-
-    .headline-sub {
-      font-size: 0.9rem;
-      color: var(--text-sub);
-      max-width: 540px;
-      line-height: 1.5;
-    }
-
-    .section-block + .section-block { border-top: 1px dashed #e5e7eb; margin-top: 4px; }
-
-    /* ---------- SLIDER + CARDS ---------- */
-    .card-slider { position: relative; margin-top: 18px; }
-
-    .card-track {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      padding: 6px 4px 18px;
-      scroll-behavior: smooth;
-      scroll-snap-type: x mandatory;
-    }
-    .card-track::-webkit-scrollbar { height: 0; }
-
-    .product-card {
-      scroll-snap-align: start;
-      flex: 0 0 calc(50% - 10px);
-      max-width: calc(50% - 10px);
-      background: var(--card-bg);
-      border-radius: var(--radius-large);
-      box-shadow: var(--shadow-soft);
-      padding: 18px 18px 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid #e5e7eb;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.18);
-      border-color: #bfdbfe;
-    }
-
-    @media (max-width: 900px) {
-      .product-card { flex: 0 0 min(360px, 82vw); max-width: min(360px, 82vw); }
-    }
-
-    .product-tag { font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 4px; font-weight: 500; }
-    .product-title { font-size: 1.02rem; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
-
-    .product-meta { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 8px; line-height: 1.45; }
-    .product-meta span + span::before { content: " • "; margin: 0 2px; }
-
-    .product-image-wrap {
-      margin-top: 8px;
-      border-radius: 18px;
-      overflow: hidden;
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      padding: 10px 12px;
-    }
-
-    .product-image-wrap img { width: 100%; height: 220px; object-fit: contain; display: block; }
-
-    .placeholder-text { font-size: 0.85rem; color: var(--text-sub); padding: 6px 2px; }
-
-    .poster-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
-
-    .tag {
-      font-size: 0.75rem;
-      border-radius: var(--radius-pill);
-      padding: 3px 9px;
-      background: #e5edff;
-      color: #1d4ed8;
-      border: 1px solid rgba(37, 99, 235, 0.35);
-    }
-
-    .product-actions { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
-
-    .btn {
-      border-radius: var(--radius-pill);
-      padding: 7px 15px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      border: 1px solid transparent;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease, transform 0.08s ease, box-shadow 0.16s ease;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: var(--accent-blue);
-      color: #ffffff;
-      border-color: #0071e3;
-      box-shadow: 0 10px 26px rgba(0, 113, 227, 0.35);
-    }
-
-    .btn-primary:hover {
-      background: #005bb9;
-      border-color: #005bb9;
-      transform: translateY(-1px);
-      box-shadow: 0 16px 32px rgba(0, 113, 227, 0.5);
-      text-decoration: none;
-    }
-
-    .btn-ghost { background: #ffffff; color: var(--text-sub); border-color: #d1d5db; }
-
-    .btn-ghost:hover {
-      border-color: var(--accent-blue);
-      color: var(--accent-blue);
-      transform: translateY(-1px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-      text-decoration: none;
-    }
-
-    /* ---------- SLIDER ARROWS ---------- */
-    .slider-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      border: 1px solid #d1d5db;
-      background: #ffffff;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-      z-index: 5;
-    }
-
-    .slider-arrow span { font-size: 1.15rem; line-height: 1; }
-    .slider-arrow.left { left: -12px; }
-    .slider-arrow.right { right: -12px; }
-
-    .slider-arrow:hover {
-      background: #f3f4f6;
-      transform: translateY(-50%) scale(1.05);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.24);
-      border-color: #9ca3af;
-    }
-
-    .slider-arrow:active { transform: translateY(-50%) scale(0.95); }
-
-    @media (max-width: 768px) { .slider-arrow { display: none; } }
-
-    /* ---------- FOOTER ---------- */
-    footer {
-      padding-top: 10px;
-      border-top: 1px solid #e5e7eb;
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      text-align: center;
-      margin-top: 8px;
+    footer{
+      padding-top:10px;border-top:1px solid #e5e7eb;
+      font-size:.75rem;color:var(--text-sub);text-align:center;margin-top:8px;
     }
   </style>
 </head>
 
 <body>
   <main class="page">
-    <!-- HEADER -->
     <header class="store-header">
       <div class="store-left">
-        <div class="eyebrow-pill">
-          <span class="eyebrow-dot"></span>
-          RESEARCH · POSTERS · JOURNALS
-        </div>
+        <div class="eyebrow-pill"><span class="eyebrow-dot"></span>RESEARCH · POSTERS · JOURNALS</div>
         <div class="store-logo">Research Gallery</div>
         <p class="store-subtitle">
           A clean overview of my work across basic science, clinical research, and pharmacogenomics.
@@ -411,23 +291,18 @@
     <section class="section-block" id="journals">
       <div class="section-label">Section 1 · Journals & Manuscripts</div>
       <h1 class="headline">Journal <span class="headline-accent">Articles & Manuscripts</span></h1>
-      <p class="headline-sub">
-        Peer-reviewed publications, accepted manuscripts, and works under review where I serve as a co-author.
-      </p>
+      <p class="headline-sub">Peer-reviewed publications, accepted manuscripts, and works under review where I serve as a co-author.</p>
 
       <div class="card-slider">
         <button class="slider-arrow left" type="button" onclick="scrollCards('journalTrack', -1)"><span>‹</span></button>
 
         <div class="card-track" id="journalTrack">
-          <!-- Journal 1 -->
           <article class="product-card">
             <div class="product-tag">2025 · Peer-Reviewed Publication</div>
-            <h2 class="product-title">
-              Telmisartan targets Nrf2-HO1 axis in MASLD modulating oxidative stress, inflammation, and mitochondrial dysfunction: mechanistic insights
-            </h2>
+            <h2 class="product-title">Telmisartan targets Nrf2-HO1 axis in MASLD modulating oxidative stress, inflammation, and mitochondrial dysfunction: mechanistic insights</h2>
             <div class="product-meta"><span>Libyan Journal of Medicine</span><span>2025</span></div>
             <div class="product-image-wrap">
-              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg" alt="Libyan Journal of Medicine article on telmisartan in MASLD" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg" alt="Telmisartan MASLD paper" loading="lazy" />
             </div>
             <div class="poster-tags"><span class="tag">Peer-Reviewed</span><span class="tag">Co-Author</span></div>
             <div class="product-actions">
@@ -437,13 +312,12 @@
             </div>
           </article>
 
-          <!-- Journal 2 -->
           <article class="product-card">
             <div class="product-tag">2025 · Peer-Reviewed Publication</div>
             <h2 class="product-title">The Clinical Impact of SGLT2 Inhibitors in Patients with and without Type 2 Diabetes: Systematic Review</h2>
             <div class="product-meta"><span>American Journal of Psychiatric Rehabilitation</span><span>2025</span></div>
             <div class="product-image-wrap">
-              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg" alt="Systematic review on SGLT2 inhibitors with and without type 2 diabetes" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg" alt="SGLT2 systematic review" loading="lazy" />
             </div>
             <div class="poster-tags"><span class="tag">Peer-Reviewed</span><span class="tag">Systematic Review</span><span class="tag">Co-Author</span></div>
             <div class="product-actions">
@@ -453,7 +327,6 @@
             </div>
           </article>
 
-          <!-- Journal 3 – In Press -->
           <article class="product-card">
             <div class="product-tag">In Press · Co-Author</div>
             <h2 class="product-title">Genetic determinants of biofilm formation and antibiotic response in <em>Pseudomonas aeruginosa</em></h2>
@@ -462,7 +335,6 @@
             <div class="poster-tags"><span class="tag">In Press</span><span class="tag">Co-Author</span></div>
           </article>
 
-          <!-- Journal 4 – Under Review ESPR5 -->
           <article class="product-card">
             <div class="product-tag">Under Review · Co-Author</div>
             <h2 class="product-title">Emerging applications of marine-bacterial exopolysaccharide ESPR5 from <em>Kocuria</em> sp. AG5</h2>
@@ -471,7 +343,6 @@
             <div class="poster-tags"><span class="tag">Under Review</span><span class="tag">Co-Author</span></div>
           </article>
 
-          <!-- Journal 5 – Under Review JAK inhibitors -->
           <article class="product-card">
             <div class="product-tag">Under Review · Co-Author</div>
             <h2 class="product-title">Baricitinib and ruxolitinib efficacy and safety on SALT scores in autoimmune alopecia areata – systematic review and meta-analysis</h2>
@@ -500,7 +371,7 @@
             <h2 class="product-title">Optimizing Chemotherapy Safety: Implementing DPYD Pharmacogenomic Testing to Reduce 5-FU Toxicity</h2>
             <div class="product-meta"><span>KU Research Symposium</span><span>KCHP Spring Conference</span><span>KPHA</span><span>Lawrence, Kansas</span></div>
             <div class="product-image-wrap">
-              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg" alt="Poster: DPYD pharmacogenomic testing to reduce 5-FU toxicity" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg" alt="DPYD poster" loading="lazy" />
             </div>
             <div class="poster-tags"><span class="tag">Pharmacogenomics</span><span class="tag">Research Poster</span></div>
             <div class="product-actions">
@@ -514,7 +385,7 @@
             <h2 class="product-title">The Effect of Structurally Diverse Indoles and Monosaccharides on Multiple Myeloma Cell Morphology via Cell Painting Assay</h2>
             <div class="product-meta"><span>KU Research Symposium</span><span>Lawrence, Kansas</span></div>
             <div class="product-image-wrap">
-              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/1.jpg" alt="Poster: Multiple myeloma cell morphology via cell painting assay" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/1.jpg" alt="Myeloma poster" loading="lazy" />
             </div>
             <div class="poster-tags"><span class="tag">Research Poster</span></div>
             <div class="product-actions">
@@ -528,7 +399,7 @@
             <h2 class="product-title">The Effect of D(+)-Maltose and Curry on Glycogen Phosphorylase b</h2>
             <div class="product-meta"><span>KU Research Symposium</span><span>Lawrence, Kansas</span></div>
             <div class="product-image-wrap">
-              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg" alt="Poster: Effect of D(+)-maltose and curry on glycogen phosphorylase b" loading="lazy" />
+              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg" alt="Maltose poster" loading="lazy" />
             </div>
             <div class="poster-tags"><span class="tag">Research Poster</span></div>
             <div class="product-actions">
@@ -551,83 +422,69 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Replace img URLs with your GitHub RAW image links when ready
-    const PLACEHOLDER_IMG = "https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg";
+    // ✅ IV-to-PO image ONLY
+    const IV_TO_PO_IMG = "https://raw.githubusercontent.com/a860h040/Poster/main/6.png";
+
+    // ✅ placeholders for the rest (change these later when you upload each image)
+    const VANCO_IMG     = "https://raw.githubusercontent.com/a860h040/Poster/main/7.png";
+    const COPD_IMG      = "https://raw.githubusercontent.com/a860h040/Poster/main/8.png";
+    const PHOTO_IMG     = "https://raw.githubusercontent.com/a860h040/Poster/main/9.png";
+    const SHELF_IMG     = "https://raw.githubusercontent.com/a860h040/Poster/main/10.png";
+    const WORKFLOW_IMG  = "https://raw.githubusercontent.com/a860h040/Poster/main/11.png";
+    const LEXIEYE_IMG   = "https://raw.githubusercontent.com/a860h040/Poster/main/";
+    const DPYD_IMG      = "https://raw.githubusercontent.com/a860h040/Poster/main/";
+    const STOCKROOM_IMG = "https://raw.githubusercontent.com/a860h040/Poster/main/";
 
     const informaticsProjects = [
-      {
-        title: "Vancomycin + Coverage",
-        subtitle: "Clinical Calculators",
-        href: "https://sites.google.com/view/antibiotics-coverage-tool/pharmacy-tools",
-        img: PLACEHOLDER_IMG
-      },
-      {
-  title: "IV-to-PO",
-  subtitle: "Conversion Assistant",
-  href: "https://a860h040.github.io/IV-to-PO/",
-  img: "https://raw.githubusercontent.com/a860h040/IV-to-PO/main/ChatGPT%20Image%20Dec%2017%2C%202025%2C%2009_23_33%20AM.png"
-},
-
-      {
-        title: "COPD Guide",
-        subtitle: "Patient Education",
-        href: "https://a860h040.github.io/COPD/",
-        img: PLACEHOLDER_IMG
-      },
-      {
-        title: "IV Photo-Verify",
-        subtitle: "Compounding Workflow",
-        href: "https://a860h040.github.io/Showmedemo6APP/",
-        img: PLACEHOLDER_IMG
-      },
-      {
-        title: "Shelf Tracker",
-        subtitle: "Medication Tracking",
-        href: "https://a860h040.github.io/Medication-Shelf-Tracker/",
-        img: PLACEHOLDER_IMG
-      },
-      {
-        title: "Workflow Manager",
-        subtitle: "Technician Team",
-        href: "https://sites.google.com/view/workflowhospital/home",
-        img: PLACEHOLDER_IMG
-      },
-      {
-        title: "LexiEye-LIVE",
-        subtitle: "Pill Counting Camera",
-        href: "https://a860h040.github.io/lexieye-LIVE/",
-        img: PLACEHOLDER_IMG
-      },
-      {
-        title: "DPYD + 5-FU",
-        subtitle: "Risk Estimator",
-        href: "https://sites.google.com/view/dpyd-testing/home",
-        img: PLACEHOLDER_IMG
-      },
-      {
-        title: "Stockroom Locator",
-        subtitle: "Medication Locator",
-        href: "https://sites.google.com/view/olathemdc/home",
-        img: PLACEHOLDER_IMG
-      }
+      { title:"Vancomycin + Coverage", subtitle:"Clinical Calculators", href:"https://sites.google.com/view/antibiotics-coverage-tool/pharmacy-tools", img:VANCO_IMG, scale: 1.15, pad: 0 },
+      { title:"IV-to-PO", subtitle:"Conversion Assistant", href:"https://a860h040.github.io/IV-to-PO/", img:IV_TO_PO_IMG, scale: 1.15, pad: 0 },
+      { title:"COPD Guide", subtitle:"Patient Education", href:"https://a860h040.github.io/COPD/", img:COPD_IMG, scale: 1.15, pad: 0  },
+      { title:"IV Photo-Verify", subtitle:"Compounding Workflow", href:"https://a860h040.github.io/Showmedemo6APP/", img:PHOTO_IMG, scale: 1.20, pad: 0 },
+      { title:"Shelf Tracker", subtitle:"Medication Tracking", href:"https://a860h040.github.io/Medication-Shelf-Tracker/", img:SHELF_IMG, scale: 1.15, pad: 0},
+      { title:"Workflow Manager", subtitle:"Technician Team", href:"https://sites.google.com/view/workflowhospital/home", img:WORKFLOW_IMG, scale: 1.15, pad: 0},
+      { title:"LexiEye-LIVE", subtitle:"Pill Counting Camera", href:"https://a860h040.github.io/lexieye-LIVE/", img:LEXIEYE_IMG, scale: 1.15, pad: 0 },
+      { title:"DPYD + 5-FU", subtitle:"Risk Estimator", href:"https://sites.google.com/view/dpyd-testing/home", img:DPYD_IMG, scale: 1.15, pad: 0 },
+      { title:"Stockroom Locator", subtitle:"Medication Locator", href:"https://sites.google.com/view/olathemdc/home", img:STOCKROOM_IMG, scale: 1.15, pad: 0 }
     ];
 
     function renderInformaticsCircles() {
-      const row = document.getElementById("informaticsRow");
-      if (!row) return;
+  const row = document.getElementById("informaticsRow");
+  if (!row) return;
 
-      row.innerHTML = informaticsProjects.map(p => `
-        <div class="project-item">
-          <a class="project-circle" href="${p.href}" target="_blank" rel="noopener noreferrer" aria-label="${p.title}">
-            <img src="${p.img}" alt="${p.title}" loading="lazy" />
-          </a>
-          <div class="project-label">${p.title}</div>
-          <div class="project-sub">${p.subtitle || ""}</div>
-        </div>
-      `).join("");
+  row.innerHTML = informaticsProjects.map(p => `
+    <div class="project-item">
+      <a
+        class="project-circle"
+        href="${p.href}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="${p.title}"
+        style="--img-scale:${p.scale || 1}; --img-pad:${(p.pad ?? 18)}px;"
+      >
+        <img src="${p.img}" alt="" loading="lazy" />
+        <div class="fallback">${p.title}</div>
+      </a>
+      <div class="project-label">${p.title}</div>
+      <div class="project-sub">${p.subtitle || ""}</div>
+    </div>
+  `).join("");
+}
+
+
+    function attachCircleImageFallbacks() {
+      document.querySelectorAll(".project-circle img").forEach(img => {
+        const circle = img.closest(".project-circle");
+        if (!circle) return;
+
+        const markBroken = () => circle.classList.add("no-img");
+        img.addEventListener("error", markBroken);
+
+        if (img.complete && img.naturalWidth === 0) markBroken();
+      });
     }
 
     renderInformaticsCircles();
+    attachCircleImageFallbacks();
 
     function scrollCards(trackId, direction) {
       const track = document.getElementById(trackId);
