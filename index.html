@@ -73,7 +73,6 @@
     .projects-row::-webkit-scrollbar{height:0}
     .project-item{flex:0 0 auto;width:280px;text-align:center}
 
-    /* 3x bigger circles */
     .project-circle{
       width:234px;height:234px;border-radius:50%;
       background:#fff;border:1px solid #e5e7eb;
@@ -82,26 +81,22 @@
       overflow:hidden;margin:0 auto;
       transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
       position:relative;
+
+      /* defaults (overridable per-item) */
+      --img-scale: 1;
+      --img-pad: 18px;
     }
 
-    .project-circle{
-  /* default values */
-  --img-scale: 1;
-  --img-pad: 18px;
-}
-
-.project-circle img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  padding: var(--img-pad);
-  background:#fff;
-  display:block;
-
-  transform: scale(var(--img-scale));
-  transform-origin:center;
-}
-
+    .project-circle img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding: var(--img-pad);
+      background:#fff;
+      display:block;
+      transform: scale(var(--img-scale));
+      transform-origin:center;
+    }
 
     .project-circle:hover{
       transform:translateY(-2px) scale(1.04);
@@ -223,29 +218,99 @@
       box-shadow:0 12px 28px rgba(0,0,0,.12);text-decoration:none;
     }
 
-    /* SLIDER ARROWS */
+    /* SLIDER ARROWS (Apple-style) */
     .slider-arrow{
-      position:absolute;top:50%;transform:translateY(-50%);
-      border-radius:50%;width:32px;height:32px;
-      border:1px solid #d1d5db;background:#fff;
-      box-shadow:0 10px 25px rgba(0,0,0,.18);
-      display:flex;align-items:center;justify-content:center;
-      cursor:pointer;transition:background .18s ease,transform .12s ease,box-shadow .18s ease,border-color .18s ease;
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:54px;
+      height:54px;
+      border-radius:999px;
+
+      border:none;
+      background:rgba(229,231,235,.92);
+      backdrop-filter:blur(6px);
+
+      box-shadow:0 10px 25px rgba(0,0,0,.14);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      cursor:pointer;
       z-index:5;
+
+      transition:transform .12s ease, box-shadow .18s ease, background .18s ease;
     }
-    .slider-arrow span{font-size:1.15rem;line-height:1}
-    .slider-arrow.left{left:-12px}
-    .slider-arrow.right{right:-12px}
+
+    .slider-arrow svg{
+      width:22px;
+      height:22px;
+      stroke:#4b5563;
+      stroke-width:3.2;
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .slider-arrow.left{ left:10px; }
+    .slider-arrow.right{ right:10px; }
+
     .slider-arrow:hover{
-      background:#f3f4f6;transform:translateY(-50%) scale(1.05);
-      box-shadow:0 14px 32px rgba(0,0,0,.24);border-color:#9ca3af;
+      background:rgba(229,231,235,1);
+      box-shadow:0 14px 32px rgba(0,0,0,.20);
+      transform:translateY(-50%) scale(1.04);
     }
-    .slider-arrow:active{transform:translateY(-50%) scale(.95)}
-    @media (max-width:768px){.slider-arrow{display:none}}
+
+    .slider-arrow:active{
+      transform:translateY(-50%) scale(.96);
+    }
+
+    @media (max-width:768px){
+      .slider-arrow{ width:46px; height:46px; }
+      .slider-arrow svg{ width:20px; height:20px; }
+    }
 
     footer{
       padding-top:10px;border-top:1px solid #e5e7eb;
       font-size:.75rem;color:var(--text-sub);text-align:center;margin-top:8px;
+    }
+
+    /* INFORMATICS ROW ARROWS */
+    .informatics-wrap{ position:relative; }
+    .informatics-wrap .projects-row{ padding-left:72px; padding-right:72px; } /* space for big arrows */
+    .inf-arrow.left{ left:10px; }
+    .inf-arrow.right{ right:10px; }
+
+    /* QUICK-JUMP ICONS (floating) */
+    .quick-jump{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      z-index:999;
+    }
+    .jump-icon{
+      width:46px;height:46px;
+      border-radius:999px;
+      border:1px solid #d1d5db;
+      background:#fff;
+      box-shadow:0 10px 25px rgba(0,0,0,.18);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;
+      font-size:1.25rem;
+      transition:transform .12s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .jump-icon:hover{
+      transform:translateY(-1px) scale(1.04);
+      box-shadow:0 14px 32px rgba(0,0,0,.24);
+      border-color:#9ca3af;
+      background:#f9fafb;
+    }
+    .jump-icon:active{ transform:scale(.95); }
+    @media (max-width:768px){
+      .jump-icon{ width:42px;height:42px;font-size:1.15rem; }
     }
   </style>
 </head>
@@ -266,15 +331,6 @@
       </div>
     </header>
 
-    <!-- INFORMATICS PROJECT CIRCLES -->
-    <section class="projects-strip" aria-label="Informatics projects">
-      <div class="projects-head">
-        <div class="projects-title">Informatics Projects</div>
-        <div class="projects-hint">Click an icon to open the project</div>
-      </div>
-      <div class="projects-row" id="informaticsRow"></div>
-    </section>
-
     <!-- TABS -->
     <div class="tab-row">
       <div class="tab-inner">
@@ -283,6 +339,9 @@
         </button>
         <button class="tab-pill" type="button" onclick="scrollToSection('posters')">
           <span class="icon">📊</span> Posters
+        </button>
+        <button class="tab-pill" type="button" onclick="scrollToSection('informatics')">
+          <span class="icon">💻</span> Informatics
         </button>
       </div>
     </div>
@@ -294,7 +353,9 @@
       <p class="headline-sub">Peer-reviewed publications, accepted manuscripts, and works under review where I serve as a co-author.</p>
 
       <div class="card-slider">
-        <button class="slider-arrow left" type="button" onclick="scrollCards('journalTrack', -1)"><span>‹</span></button>
+        <button class="slider-arrow left" type="button" onclick="scrollCards('journalTrack', -1)" aria-label="Previous">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5L9 12l5.5 5.5"></path></svg>
+        </button>
 
         <div class="card-track" id="journalTrack">
           <article class="product-card">
@@ -352,7 +413,9 @@
           </article>
         </div>
 
-        <button class="slider-arrow right" type="button" onclick="scrollCards('journalTrack', 1)"><span>›</span></button>
+        <button class="slider-arrow right" type="button" onclick="scrollCards('journalTrack', 1)" aria-label="Next">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6.5L15 12l-5.5 5.5"></path></svg>
+        </button>
       </div>
     </section>
 
@@ -363,7 +426,9 @@
       <p class="headline-sub">Selected posters and projects presented at research symposia and academic institutions from 2019–2025.</p>
 
       <div class="card-slider">
-        <button class="slider-arrow left" type="button" onclick="scrollCards('posterTrack', -1)"><span>‹</span></button>
+        <button class="slider-arrow left" type="button" onclick="scrollCards('posterTrack', -1)" aria-label="Previous">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5L9 12l5.5 5.5"></path></svg>
+        </button>
 
         <div class="card-track" id="posterTrack">
           <article class="product-card">
@@ -409,8 +474,36 @@
           </article>
         </div>
 
-        <button class="slider-arrow right" type="button" onclick="scrollCards('posterTrack', 1)"><span>›</span></button>
+        <button class="slider-arrow right" type="button" onclick="scrollCards('posterTrack', 1)" aria-label="Next">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6.5L15 12l-5.5 5.5"></path></svg>
+        </button>
       </div>
+    </section>
+
+    <!-- SECTION 3: INFORMATICS -->
+    <section class="section-block" id="informatics">
+      <div class="section-label">Section 3 · Informatics Projects</div>
+      <h1 class="headline">Pharmacy <span class="headline-accent">Informatics Projects</span></h1>
+      <p class="headline-sub">Selected informatics tools and workflow projects built to support clinical decision-making, patient education, and operational efficiency.</p>
+
+      <section class="projects-strip" aria-label="Informatics projects">
+        <div class="projects-head">
+          <div class="projects-title">Informatics Projects</div>
+          <div class="projects-hint">Click an icon to open the project</div>
+        </div>
+
+        <div class="informatics-wrap">
+          <button class="slider-arrow left inf-arrow" type="button" onclick="scrollInformatics(-1)" aria-label="Scroll left">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5L9 12l5.5 5.5"></path></svg>
+          </button>
+
+          <div class="projects-row" id="informaticsRow"></div>
+
+          <button class="slider-arrow right inf-arrow" type="button" onclick="scrollInformatics(1)" aria-label="Scroll right">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6.5L15 12l-5.5 5.5"></path></svg>
+          </button>
+        </div>
+      </section>
     </section>
 
     <footer>
@@ -419,13 +512,17 @@
     </footer>
   </main>
 
+  <!-- Quick-jump icons -->
+  <div class="quick-jump" aria-label="Quick navigation">
+    <button class="jump-icon" type="button" onclick="scrollToSection('journals')" aria-label="Go to Journals">📚</button>
+    <button class="jump-icon" type="button" onclick="scrollToSection('posters')" aria-label="Go to Posters">📊</button>
+    <button class="jump-icon" type="button" onclick="scrollToSection('informatics')" aria-label="Go to Informatics">💻</button>
+  </div>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ✅ IV-to-PO image ONLY
     const IV_TO_PO_IMG = "https://raw.githubusercontent.com/a860h040/Poster/main/6.png";
-
-    // ✅ placeholders for the rest (change these later when you upload each image)
     const VANCO_IMG     = "https://raw.githubusercontent.com/a860h040/Poster/main/7.png";
     const COPD_IMG      = "https://raw.githubusercontent.com/a860h040/Poster/main/8.png";
     const PHOTO_IMG     = "https://raw.githubusercontent.com/a860h040/Poster/main/9.png";
@@ -438,38 +535,37 @@
     const informaticsProjects = [
       { title:"Vancomycin + Coverage", subtitle:"Clinical Calculators", href:"https://sites.google.com/view/antibiotics-coverage-tool/pharmacy-tools", img:VANCO_IMG, scale: 1.15, pad: 0 },
       { title:"IV-to-PO", subtitle:"Conversion Assistant", href:"https://a860h040.github.io/IV-to-PO/", img:IV_TO_PO_IMG, scale: 1.15, pad: 0 },
-      { title:"COPD Guide", subtitle:"Patient Education", href:"https://a860h040.github.io/COPD/", img:COPD_IMG, scale: 1.15, pad: 0  },
+      { title:"COPD Guide", subtitle:"Patient Education", href:"https://a860h040.github.io/COPD/", img:COPD_IMG, scale: 1.15, pad: 0 },
       { title:"IV Photo-Verify", subtitle:"Compounding Workflow", href:"https://a860h040.github.io/Showmedemo6APP/", img:PHOTO_IMG, scale: 1.20, pad: 0 },
-      { title:"Shelf Tracker", subtitle:"Medication Tracking", href:"https://a860h040.github.io/Medication-Shelf-Tracker/", img:SHELF_IMG, scale: 1.15, pad: 0},
-      { title:"Workflow Manager", subtitle:"Technician Team", href:"https://sites.google.com/view/workflowhospital/home", img:WORKFLOW_IMG, scale: 1.15, pad: 0},
+      { title:"Shelf Tracker", subtitle:"Medication Tracking", href:"https://a860h040.github.io/Medication-Shelf-Tracker/", img:SHELF_IMG, scale: 1.15, pad: 0 },
+      { title:"Workflow Manager", subtitle:"Technician Team", href:"https://sites.google.com/view/workflowhospital/home", img:WORKFLOW_IMG, scale: 1.15, pad: 0 },
       { title:"LexiEye-LIVE", subtitle:"Pill Counting Camera", href:"https://a860h040.github.io/lexieye-LIVE/", img:LEXIEYE_IMG, scale: 1.15, pad: 0 },
       { title:"DPYD + 5-FU", subtitle:"Risk Estimator", href:"https://sites.google.com/view/dpyd-testing/home", img:DPYD_IMG, scale: 1.15, pad: 0 },
       { title:"Stockroom Locator", subtitle:"Medication Locator", href:"https://sites.google.com/view/olathemdc/home", img:STOCKROOM_IMG, scale: 1.15, pad: 0 }
     ];
 
     function renderInformaticsCircles() {
-  const row = document.getElementById("informaticsRow");
-  if (!row) return;
+      const row = document.getElementById("informaticsRow");
+      if (!row) return;
 
-  row.innerHTML = informaticsProjects.map(p => `
-    <div class="project-item">
-      <a
-        class="project-circle"
-        href="${p.href}"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="${p.title}"
-        style="--img-scale:${p.scale || 1}; --img-pad:${(p.pad ?? 18)}px;"
-      >
-        <img src="${p.img}" alt="" loading="lazy" />
-        <div class="fallback">${p.title}</div>
-      </a>
-      <div class="project-label">${p.title}</div>
-      <div class="project-sub">${p.subtitle || ""}</div>
-    </div>
-  `).join("");
-}
-
+      row.innerHTML = informaticsProjects.map(p => `
+        <div class="project-item">
+          <a
+            class="project-circle"
+            href="${p.href}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="${p.title}"
+            style="--img-scale:${p.scale || 1}; --img-pad:${(p.pad ?? 18)}px;"
+          >
+            <img src="${p.img}" alt="" loading="lazy" />
+            <div class="fallback">${p.title}</div>
+          </a>
+          <div class="project-label">${p.title}</div>
+          <div class="project-sub">${p.subtitle || ""}</div>
+        </div>
+      `).join("");
+    }
 
     function attachCircleImageFallbacks() {
       document.querySelectorAll(".project-circle img").forEach(img => {
@@ -478,7 +574,6 @@
 
         const markBroken = () => circle.classList.add("no-img");
         img.addEventListener("error", markBroken);
-
         if (img.complete && img.naturalWidth === 0) markBroken();
       });
     }
@@ -495,6 +590,17 @@
       track.scrollBy({ left: direction * amount, behavior: "smooth" });
     }
 
+    function scrollInformatics(direction){
+      const row = document.getElementById("informaticsRow");
+      if (!row) return;
+
+      const item = row.querySelector(".project-item");
+      const gap = 18;
+      const amount = item ? item.offsetWidth + gap : 300;
+
+      row.scrollBy({ left: direction * amount, behavior: "smooth" });
+    }
+
     function scrollToSection(id) {
       const el = document.getElementById(id);
       if (!el) return;
@@ -504,6 +610,7 @@
       tabs.forEach(t => t.classList.remove("active"));
       if (id === "journals") tabs[0]?.classList.add("active");
       if (id === "posters") tabs[1]?.classList.add("active");
+      if (id === "informatics") tabs[2]?.classList.add("active");
     }
   </script>
 </body>
