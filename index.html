@@ -1,619 +1,1195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Research Gallery | Alhamza Hamza</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root{
-      --bg:#f5f5f7;
-      --card-bg:#ffffff;
-      --text-main:#1d1d1f;
-      --text-sub:#6e6e73;
-      --accent-blue:#0071e3;
-      --accent-green:#22c55e;
-      --radius-large:26px;
-      --radius-pill:999px;
-      --shadow-soft:0 18px 40px rgba(0,0,0,0.08);
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
-      background:var(--bg);
-      color:var(--text-main);
-      min-height:100vh;
-    }
-    a{color:var(--accent-blue);text-decoration:none}
-    a:hover{text-decoration:underline}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IPTV — Live · Movies · Series (Category Sliders)</title>
 
-    .page{max-width:1160px;margin:0 auto;padding:32px 16px 40px}
+<style>
+  /* =========================================================
+     Apple / Research-Gallery style (LIGHT) + Category Sliders
+  ========================================================= */
+  :root{
+    --bg:#f5f5f7;
+    --card-bg:#ffffff;
+    --text-main:#1d1d1f;
+    --text-sub:#6e6e73;
+    --accent-blue:#0071e3;
+    --accent-green:#22c55e;
+    --radius-large:26px;
+    --radius-pill:999px;
+    --shadow-soft:0 18px 40px rgba(0,0,0,0.08);
 
-    /* HEADER */
-    .store-header{
-      padding-bottom:20px;
-      border-bottom:1px solid #e5e7eb;
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:1.75rem;
-    }
-    .store-left{display:flex;flex-direction:column;gap:8px}
-    .eyebrow-pill{
-      display:inline-flex;align-items:center;gap:8px;
-      font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
-      color:#4b5563;background:#f9fafb;padding:4px 11px;
-      border-radius:var(--radius-pill);border:1px solid #e5e7eb;
-    }
-    .eyebrow-dot{width:7px;height:7px;border-radius:999px;background:var(--accent-green)}
-    .store-logo{
-      font-size:clamp(1.9rem,3vw,2.5rem);
-      font-weight:700;
-      background:linear-gradient(90deg,#0071e3,#34c759);
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-    }
-    .store-subtitle{font-size:.9rem;color:var(--text-sub);max-width:420px;line-height:1.5}
-    .store-right{text-align:right;font-size:.9rem;color:var(--text-main);max-width:360px}
-    .store-right p:first-child{font-weight:600;margin-bottom:4px}
-    .store-right p:last-child{color:var(--text-sub);line-height:1.4}
+    --border:#e5e7eb;
+    --border-strong:#d1d5db;
+    --focus: rgba(0,113,227,.22);
+    --hover: rgba(0,113,227,.06);
+    --shadow-card: 0 16px 34px rgba(0,0,0,.10);
+    --shadow-card-hover: 0 22px 50px rgba(0,0,0,.16);
 
-    /* INFORMATICS CIRCLES */
-    .projects-strip{padding:14px 0 12px;border-bottom:1px solid #e5e7eb}
-    .projects-head{
-      display:flex;align-items:baseline;justify-content:space-between;
-      gap:12px;margin-bottom:10px
-    }
-    .projects-title{
-      font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-sub)
-    }
-    .projects-hint{font-size:.82rem;color:var(--text-sub)}
-    .projects-row{
-      display:flex;gap:18px;overflow-x:auto;padding:6px 4px 14px;
-      scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
-    }
-    .projects-row::-webkit-scrollbar{height:0}
-    .project-item{flex:0 0 auto;width:280px;text-align:center}
+    --ok-bg: rgba(34,197,94,.10);
+    --ok-bd: rgba(34,197,94,.35);
+    --ok-tx: #15803d;
 
-    .project-circle{
-      width:234px;height:234px;border-radius:50%;
-      background:#fff;border:1px solid #e5e7eb;
-      box-shadow:0 12px 26px rgba(0,0,0,.12);
-      display:flex;align-items:center;justify-content:center;
-      overflow:hidden;margin:0 auto;
-      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-      position:relative;
+    --err-bg: rgba(239,68,68,.10);
+    --err-bd: rgba(239,68,68,.35);
+    --err-tx: #b91c1c;
 
-      /* defaults (overridable per-item) */
-      --img-scale: 1;
-      --img-pad: 18px;
-    }
+    --warn-bg: rgba(245,158,11,.12);
+    --warn-bd: rgba(245,158,11,.35);
+    --warn-tx: #92400e;
+  }
 
-    .project-circle img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      padding: var(--img-pad);
-      background:#fff;
-      display:block;
-      transform: scale(var(--img-scale));
-      transform-origin:center;
-    }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text-main);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+    min-height:100vh;
+  }
 
-    .project-circle:hover{
-      transform:translateY(-2px) scale(1.04);
-      box-shadow:0 18px 34px rgba(0,0,0,.18);
-      border-color:#bfdbfe;
-      text-decoration:none;
-    }
+  /* Header (control panel) */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(245,245,247,.86);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .hdr{
+    max-width:1400px;
+    margin:0 auto;
+    padding:14px 14px 12px;
+    display:grid;
+    grid-template-columns: 1.3fr 2fr;
+    gap:12px;
+    align-items:start;
+  }
+  .brand{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    padding:4px 6px;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:.74rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#4b5563;
+    background:#fff;
+    padding:4px 11px;
+    border-radius:var(--radius-pill);
+    border:1px solid var(--border);
+    width:max-content;
+  }
+  .dot{width:7px;height:7px;border-radius:999px;background:var(--accent-green)}
+  .title{
+    font-size:clamp(1.3rem,2.2vw,1.7rem);
+    font-weight:800;
+    line-height:1.12;
+    background:linear-gradient(90deg,#0071e3,#34c759);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .subtitle{
+    color:var(--text-sub);
+    font-size:.9rem;
+    line-height:1.35;
+  }
 
-    .project-label{margin-top:12px;font-size:1.05rem;color:var(--text-main);line-height:1.2;font-weight:700}
-    .project-sub{margin-top:6px;font-size:.95rem;color:var(--text-sub);line-height:1.2}
+  .controls{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius-large);
+    box-shadow:var(--shadow-soft);
+    padding:12px;
+    display:grid;
+    gap:10px;
+  }
 
-    /* fallback if image broken */
-    .project-circle .fallback{
-      position:absolute;inset:0;display:none;
-      align-items:center;justify-content:center;text-align:center;
-      padding:18px;font-weight:800;color:#fff;
-      background:linear-gradient(135deg,#0071e3,#34c759);
-    }
-    .project-circle.no-img img{display:none}
-    .project-circle.no-img .fallback{display:flex}
+  .row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
 
-    /* TABS */
-    .tab-row{
-      padding:10px 0 16px;border-bottom:1px solid #e5e7eb;
-      display:flex;justify-content:center;
-    }
-    .tab-inner{
-      display:inline-flex;padding:4px;border-radius:var(--radius-pill);
-      background:#f3f4f6;border:1px solid #e5e7eb;gap:4px;
-    }
-    .tab-pill{
-      border-radius:var(--radius-pill);
-      padding:6px 16px;font-size:.82rem;font-weight:500;color:var(--text-sub);
-      cursor:pointer;border:none;background:transparent;
-      display:inline-flex;align-items:center;gap:6px;
-      transition:background .15s ease,color .15s ease,box-shadow .15s ease,transform .1s ease;
-    }
-    .tab-pill span.icon{font-size:1rem}
-    .tab-pill.active{
-      background:#fff;color:var(--accent-blue);
-      box-shadow:0 10px 25px rgba(0,0,0,.08);
-      transform:translateY(-.5px);
-    }
-    .tab-pill:hover{transform:translateY(-.5px)}
+  input,button{
+    border-radius:14px;
+    border:1px solid var(--border-strong);
+    background:#fff;
+    color:var(--text-main);
+    padding:11px 12px;
+    outline:none;
+    font-size:.95rem;
+    transition:box-shadow .15s ease,border-color .15s ease,transform .08s ease,background .15s ease;
+  }
+  input:focus{
+    border-color:rgba(0,113,227,.45);
+    box-shadow:0 0 0 4px var(--focus);
+  }
+  button{
+    background:var(--accent-blue);
+    border-color:transparent;
+    color:#fff;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 10px 26px rgba(0,113,227,.25);
+  }
+  button:hover{ transform:translateY(-1px); box-shadow:0 16px 32px rgba(0,113,227,.32); }
+  button:active{ transform:translateY(0px) scale(.99); }
 
-    /* SECTIONS */
-    .section-block{padding:22px 0 26px}
-    .section-label{
-      font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;
-      color:var(--text-sub);margin-bottom:4px;
-    }
-    .headline{font-size:clamp(1.6rem,2.3vw,2rem);font-weight:600;margin-bottom:6px}
-    .headline-accent{color:var(--accent-blue)}
-    .headline-sub{font-size:.9rem;color:var(--text-sub);max-width:540px;line-height:1.5}
-    .section-block + .section-block{border-top:1px dashed #e5e7eb;margin-top:4px}
+  button.ghost{
+    background:#fff;
+    color:var(--text-sub);
+    border:1px solid var(--border-strong);
+    box-shadow:none;
+    font-weight:700;
+  }
+  button.ghost:hover{
+    border-color:rgba(0,113,227,.55);
+    color:var(--accent-blue);
+    background:rgba(0,113,227,.03);
+    box-shadow:0 12px 28px rgba(0,0,0,.10);
+  }
 
-    /* SLIDER + CARDS */
-    .card-slider{position:relative;margin-top:18px}
-    .card-track{
-      display:flex;gap:20px;overflow-x:auto;padding:6px 4px 18px;
-      scroll-behavior:smooth;scroll-snap-type:x mandatory;
-    }
-    .card-track::-webkit-scrollbar{height:0}
-    .product-card{
-      scroll-snap-align:start;
-      flex:0 0 calc(50% - 10px);max-width:calc(50% - 10px);
-      background:var(--card-bg);border-radius:var(--radius-large);
-      box-shadow:var(--shadow-soft);padding:18px 18px 16px;
-      display:flex;flex-direction:column;justify-content:space-between;
-      border:1px solid #e5e7eb;
-      transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
-    }
-    .product-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 22px 50px rgba(0,0,0,.18);
-      border-color:#bfdbfe;
-    }
-    @media (max-width:900px){
-      .product-card{flex:0 0 min(360px,82vw);max-width:min(360px,82vw)}
-    }
-    .product-tag{font-size:.8rem;color:var(--accent-blue);margin-bottom:4px;font-weight:500}
-    .product-title{font-size:1.02rem;font-weight:600;margin-bottom:4px;line-height:1.4}
-    .product-meta{font-size:.85rem;color:var(--text-sub);margin-bottom:8px;line-height:1.45}
-    .product-meta span + span::before{content:" • ";margin:0 2px}
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#f9fafb;
+    border:1px solid var(--border);
+    border-radius:var(--radius-pill);
+    padding:5px 10px;
+    font-weight:800;
+    letter-spacing:.01em;
+    font-size:.9rem;
+    width:max-content;
+  }
+  .ok{ color:var(--ok-tx); border-color:var(--ok-bd); background:var(--ok-bg); }
+  .err{ color:var(--err-tx); border-color:var(--err-bd); background:var(--err-bg); }
+  .warn{ color:var(--warn-tx); border-color:var(--warn-bd); background:var(--warn-bg); }
 
-    .product-image-wrap{
-      margin-top:8px;border-radius:18px;overflow:hidden;background:#fff;
-      border:1px solid #e5e7eb;padding:10px 12px;
-    }
-    .product-image-wrap img{width:100%;height:220px;object-fit:contain;display:block}
-    .placeholder-text{font-size:.85rem;color:var(--text-sub);padding:6px 2px}
+  #status{ min-height:24px; color:var(--text-sub); font-size:.92rem; }
 
-    .poster-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
-    .tag{
-      font-size:.75rem;border-radius:var(--radius-pill);padding:3px 9px;
-      background:#e5edff;color:#1d4ed8;border:1px solid rgba(37,99,235,.35);
-    }
-    .product-actions{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
+  #search{
+    flex:1;
+    min-width:220px;
+  }
 
-    .btn{
-      border-radius:var(--radius-pill);
-      padding:7px 15px;font-size:.8rem;font-weight:500;
-      border:1px solid transparent;cursor:pointer;text-decoration:none;
-      display:inline-flex;align-items:center;gap:6px;
-      transition:background .16s ease,color .16s ease,border-color .16s ease,transform .08s ease,box-shadow .16s ease;
-      white-space:nowrap;
-    }
-    .btn-primary{
-      background:var(--accent-blue);color:#fff;border-color:#0071e3;
-      box-shadow:0 10px 26px rgba(0,113,227,.35);
-    }
-    .btn-primary:hover{
-      background:#005bb9;border-color:#005bb9;transform:translateY(-1px);
-      box-shadow:0 16px 32px rgba(0,113,227,.5);text-decoration:none;
-    }
-    .btn-ghost{background:#fff;color:var(--text-sub);border-color:#d1d5db}
-    .btn-ghost:hover{
-      border-color:var(--accent-blue);color:var(--accent-blue);transform:translateY(-1px);
-      box-shadow:0 12px 28px rgba(0,0,0,.12);text-decoration:none;
-    }
+  .note{
+    color:var(--text-sub);
+    font-size:.85rem;
+    line-height:1.35;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:10px 12px;
+    box-shadow:0 12px 26px rgba(0,0,0,.06);
+  }
 
-    /* SLIDER ARROWS (Apple-style) */
-    .slider-arrow{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:54px;
-      height:54px;
-      border-radius:999px;
+  /* Page content */
+  main{
+    max-width:1400px;
+    margin:0 auto;
+    padding:16px 14px 28px;
+  }
 
-      border:none;
-      background:rgba(229,231,235,.92);
-      backdrop-filter:blur(6px);
+  .kindHeader{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:10px;
+    margin:10px 2px 6px;
+  }
+  .kindHeader h2{
+    margin:0;
+    font-size:1.05rem;
+    font-weight:900;
+    color:var(--text-main);
+  }
+  .kindHeader .hint{
+    color:var(--text-sub);
+    font-size:.9rem;
+  }
 
-      box-shadow:0 10px 25px rgba(0,0,0,.14);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+  /* Category section */
+  .catSection{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius-large);
+    box-shadow:var(--shadow-soft);
+    padding:12px 12px 10px;
+    margin:12px 0;
+  }
+  .catTop{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:2px 6px 10px;
+  }
+  .catName{
+    font-weight:900;
+    color:var(--text-main);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .catMeta{
+    color:var(--text-sub);
+    font-size:.85rem;
+  }
 
-      cursor:pointer;
-      z-index:5;
+  /* Slider */
+  .sliderWrap{
+    position:relative;
+  }
+  .track{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    padding:6px 4px 12px;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+  }
+  .track::-webkit-scrollbar{ height:0; }
 
-      transition:transform .12s ease, box-shadow .18s ease, background .18s ease;
-    }
+  .sliderArrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:50px;
+    height:50px;
+    border-radius:999px;
+    border:none;
+    background:rgba(229,231,235,.92);
+    backdrop-filter: blur(6px);
+    box-shadow:0 10px 25px rgba(0,0,0,.14);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:5;
+    transition:transform .12s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .sliderArrow:hover{
+    background:rgba(229,231,235,1);
+    box-shadow:0 14px 32px rgba(0,0,0,.20);
+    transform:translateY(-50%) scale(1.04);
+  }
+  .sliderArrow:active{ transform:translateY(-50%) scale(.96); }
+  .sliderArrow.left{ left:8px; }
+  .sliderArrow.right{ right:8px; }
+  .sliderArrow svg{
+    width:20px;height:20px;stroke:#4b5563;stroke-width:3.2;fill:none;
+    stroke-linecap:round;stroke-linejoin:round;
+  }
 
-    .slider-arrow svg{
-      width:22px;
-      height:22px;
-      stroke:#4b5563;
-      stroke-width:3.2;
-      fill:none;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-    }
+  /* Cards inside track */
+  .card{
+    scroll-snap-align:start;
+    width:170px;
+    flex:0 0 auto;
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:10px;
+    cursor:pointer;
+    position:relative;
+    box-shadow:0 12px 26px rgba(0,0,0,.08);
+    transition:transform .14s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-card-hover);
+    border-color:rgba(0,113,227,.30);
+    background:rgba(0,113,227,.02);
+  }
 
-    .slider-arrow.left{ left:10px; }
-    .slider-arrow.right{ right:10px; }
+  .thumb{
+    width:100%;
+    height:210px;
+    object-fit:cover;
+    border-radius:18px;
+    background:#f3f4f6;
+    border:1px solid var(--border);
+  }
+  .titleTxt{
+    display:block;
+    margin-top:8px;
+    font-size:.98em;
+    font-weight:900;
+    color:var(--text-main);
+  }
+  .metaTxt{
+    color:var(--text-sub);
+    font-size:.82em;
+    margin-top:2px;
+  }
 
-    .slider-arrow:hover{
-      background:rgba(229,231,235,1);
-      box-shadow:0 14px 32px rgba(0,0,0,.20);
-      transform:translateY(-50%) scale(1.04);
-    }
+  .fav{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:#fff;
+    border:1px solid var(--border-strong);
+    border-radius:999px;
+    padding:6px 10px;
+    font-weight:900;
+    color:#f59e0b;
+    box-shadow:0 10px 22px rgba(0,0,0,.12);
+  }
+  .fav.off{ color:#9ca3af; }
 
-    .slider-arrow:active{
-      transform:translateY(-50%) scale(.96);
-    }
+  .skeleton{
+    width:170px;height:290px;border-radius:22px;
+    background:linear-gradient(90deg,#f3f4f6,#ffffff,#f3f4f6);
+    border:1px solid var(--border);
+    background-size:200% 100%;
+    animation: shimmer 1.25s infinite linear;
+  }
+  @keyframes shimmer{
+    0%{background-position:200% 0}
+    100%{background-position:-200% 0}
+  }
 
-    @media (max-width:768px){
-      .slider-arrow{ width:46px; height:46px; }
-      .slider-arrow svg{ width:20px; height:20px; }
-    }
+  .emptyRow{
+    color:var(--text-sub);
+    font-size:.9rem;
+    padding:10px 6px 2px;
+  }
 
-    footer{
-      padding-top:10px;border-top:1px solid #e5e7eb;
-      font-size:.75rem;color:var(--text-sub);text-align:center;margin-top:8px;
-    }
+  /* Drawer (Series) */
+  #drawer{
+    display:none;
+    position:fixed;
+    inset:auto 16px 16px 16px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius-large);
+    box-shadow:0 22px 60px rgba(0,0,0,.18);
+    max-height:70vh;
+    overflow:auto;
+    z-index:999;
+  }
+  #drawerHead{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    justify-content:space-between;
+    padding:12px 14px;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    background:#fff;
+    z-index:2;
+  }
+  #drawer h3{ margin:0; font-size:1.05rem; font-weight:900; }
+  #drawerTools{ display:flex; gap:8px; flex-wrap:wrap; }
 
-    /* INFORMATICS ROW ARROWS */
-    .informatics-wrap{ position:relative; }
-    .informatics-wrap .projects-row{ padding-left:72px; padding-right:72px; } /* space for big arrows */
-    .inf-arrow.left{ left:10px; }
-    .inf-arrow.right{ right:10px; }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:8px 12px;
+    border-radius:var(--radius-pill);
+    font-weight:900;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .10s ease, box-shadow .16s ease, background .16s ease, border-color .16s ease;
+    white-space:nowrap;
+  }
+  .btn.primary{
+    background:var(--accent-blue);
+    color:#fff;
+    border-color:rgba(0,113,227,.75);
+    box-shadow:0 10px 26px rgba(0,113,227,.28);
+  }
+  .btn.primary:hover{ transform:translateY(-1px); box-shadow:0 16px 32px rgba(0,113,227,.35); }
+  .btn.ghost{
+    background:#fff;
+    color:var(--text-sub);
+    border:1px solid var(--border-strong);
+    box-shadow:none;
+  }
+  .btn.ghost:hover{
+    border-color:rgba(0,113,227,.55);
+    color:var(--accent-blue);
+    background:rgba(0,113,227,.03);
+    box-shadow:0 12px 28px rgba(0,0,0,.10);
+    transform:translateY(-1px);
+  }
 
-    /* QUICK-JUMP ICONS (floating) */
-    .quick-jump{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      z-index:999;
-    }
-    .jump-icon{
-      width:46px;height:46px;
-      border-radius:999px;
-      border:1px solid #d1d5db;
-      background:#fff;
-      box-shadow:0 10px 25px rgba(0,0,0,.18);
-      display:flex;align-items:center;justify-content:center;
-      cursor:pointer;
-      font-size:1.25rem;
-      transition:transform .12s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .jump-icon:hover{
-      transform:translateY(-1px) scale(1.04);
-      box-shadow:0 14px 32px rgba(0,0,0,.24);
-      border-color:#9ca3af;
-      background:#f9fafb;
-    }
-    .jump-icon:active{ transform:scale(.95); }
-    @media (max-width:768px){
-      .jump-icon{ width:42px;height:42px;font-size:1.15rem; }
-    }
-  </style>
+  #seasons{ padding:12px 14px 14px; display:grid; gap:12px; }
+
+  .season{
+    border:1px solid var(--border);
+    border-radius:22px;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:0 14px 30px rgba(0,0,0,.08);
+  }
+  .season summary{
+    cursor:pointer;
+    padding:12px 14px;
+    background:rgba(0,113,227,.04);
+    font-weight:900;
+    border-bottom:1px solid var(--border);
+  }
+  .episodes{ padding:12px; display:grid; gap:10px; background:#fff; }
+
+  .ep{
+    display:grid;
+    grid-template-columns:1fr auto auto auto;
+    gap:8px;
+    align-items:center;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:10px;
+    box-shadow:0 10px 22px rgba(0,0,0,.06);
+  }
+  .ep .name{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-weight:900;
+    color:var(--text-main);
+  }
+  .copy{ min-width:130px; }
+
+  /* Responsive */
+  @media (max-width:1050px){
+    .hdr{ grid-template-columns:1fr; }
+    .controls{ border-radius:22px; }
+  }
+  @media (max-width:760px){
+    .sliderArrow{ width:46px;height:46px; }
+    .card, .skeleton{ width:160px; }
+    .thumb{ height:190px; }
+    #drawer{ inset:auto 10px 10px 10px; }
+    .ep{ grid-template-columns:1fr; }
+    .copy{ min-width:auto; }
+  }
+</style>
 </head>
 
 <body>
-  <main class="page">
-    <header class="store-header">
-      <div class="store-left">
-        <div class="eyebrow-pill"><span class="eyebrow-dot"></span>RESEARCH · POSTERS · JOURNALS</div>
-        <div class="store-logo">Research Gallery</div>
-        <p class="store-subtitle">
-          A clean overview of my work across basic science, clinical research, and pharmacogenomics.
-        </p>
-      </div>
-      <div class="store-right">
-        <p>Alhamza Hamza, PharmD Candidate 2026</p>
-        <p>University of Kansas School of Pharmacy · Focused on clinical practice, research, and pharmacy informatics.</p>
-      </div>
-    </header>
-
-    <!-- TABS -->
-    <div class="tab-row">
-      <div class="tab-inner">
-        <button class="tab-pill active" type="button" onclick="scrollToSection('journals')">
-          <span class="icon">📚</span> Journals
-        </button>
-        <button class="tab-pill" type="button" onclick="scrollToSection('posters')">
-          <span class="icon">📊</span> Posters
-        </button>
-        <button class="tab-pill" type="button" onclick="scrollToSection('informatics')">
-          <span class="icon">💻</span> Informatics
-        </button>
-      </div>
+<header>
+  <div class="hdr">
+    <div class="brand">
+      <div class="eyebrow"><span class="dot"></span>IPTV · LIVE · MOVIES · SERIES</div>
+      <div class="title">IPTV Browser</div>
+      <div class="subtitle">Control panel is in the header. Each category renders as a horizontal slider.</div>
     </div>
 
-    <!-- SECTION 1: JOURNALS -->
-    <section class="section-block" id="journals">
-      <div class="section-label">Section 1 · Journals & Manuscripts</div>
-      <h1 class="headline">Journal <span class="headline-accent">Articles & Manuscripts</span></h1>
-      <p class="headline-sub">Peer-reviewed publications, accepted manuscripts, and works under review where I serve as a co-author.</p>
-
-      <div class="card-slider">
-        <button class="slider-arrow left" type="button" onclick="scrollCards('journalTrack', -1)" aria-label="Previous">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5L9 12l5.5 5.5"></path></svg>
-        </button>
-
-        <div class="card-track" id="journalTrack">
-          <article class="product-card">
-            <div class="product-tag">2025 · Peer-Reviewed Publication</div>
-            <h2 class="product-title">Telmisartan targets Nrf2-HO1 axis in MASLD modulating oxidative stress, inflammation, and mitochondrial dysfunction: mechanistic insights</h2>
-            <div class="product-meta"><span>Libyan Journal of Medicine</span><span>2025</span></div>
-            <div class="product-image-wrap">
-              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/4.jpg" alt="Telmisartan MASLD paper" loading="lazy" />
-            </div>
-            <div class="poster-tags"><span class="tag">Peer-Reviewed</span><span class="tag">Co-Author</span></div>
-            <div class="product-actions">
-              <a class="btn btn-primary" href="Poster%204.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
-              <a class="btn btn-ghost" href="Poster%204.pdf" target="_blank" rel="noopener noreferrer" download>Download</a>
-              <a class="btn btn-ghost" href="https://www.tandfonline.com/doi/full/10.1080/19932820.2025.2585617" target="_blank" rel="noopener noreferrer">Journal article</a>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-tag">2025 · Peer-Reviewed Publication</div>
-            <h2 class="product-title">The Clinical Impact of SGLT2 Inhibitors in Patients with and without Type 2 Diabetes: Systematic Review</h2>
-            <div class="product-meta"><span>American Journal of Psychiatric Rehabilitation</span><span>2025</span></div>
-            <div class="product-image-wrap">
-              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/5.jpg" alt="SGLT2 systematic review" loading="lazy" />
-            </div>
-            <div class="poster-tags"><span class="tag">Peer-Reviewed</span><span class="tag">Systematic Review</span><span class="tag">Co-Author</span></div>
-            <div class="product-actions">
-              <a class="btn btn-primary" href="Poster%205.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
-              <a class="btn btn-ghost" href="Poster%205.pdf" target="_blank" rel="noopener noreferrer" download>Download</a>
-              <a class="btn btn-ghost" href="https://ajprui.com/index.php/ajpr/article/view/512" target="_blank" rel="noopener noreferrer">Journal article</a>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-tag">In Press · Co-Author</div>
-            <h2 class="product-title">Genetic determinants of biofilm formation and antibiotic response in <em>Pseudomonas aeruginosa</em></h2>
-            <div class="product-meta"><span>Manuscript accepted</span><span>In press</span></div>
-            <div class="product-image-wrap"><div class="placeholder-text">Full citation and journal link will be added once the article is published.</div></div>
-            <div class="poster-tags"><span class="tag">In Press</span><span class="tag">Co-Author</span></div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-tag">Under Review · Co-Author</div>
-            <h2 class="product-title">Emerging applications of marine-bacterial exopolysaccharide ESPR5 from <em>Kocuria</em> sp. AG5</h2>
-            <div class="product-meta"><span>Manuscript under peer review</span></div>
-            <div class="product-image-wrap"><div class="placeholder-text">Under review – external journal link will be added following acceptance.</div></div>
-            <div class="poster-tags"><span class="tag">Under Review</span><span class="tag">Co-Author</span></div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-tag">Under Review · Co-Author</div>
-            <h2 class="product-title">Baricitinib and ruxolitinib efficacy and safety on SALT scores in autoimmune alopecia areata – systematic review and meta-analysis</h2>
-            <div class="product-meta"><span>Manuscript under peer review</span></div>
-            <div class="product-image-wrap"><div class="placeholder-text">Systematic review and meta-analysis in progress – citation will be updated upon acceptance.</div></div>
-            <div class="poster-tags"><span class="tag">Under Review</span><span class="tag">Systematic Review</span><span class="tag">Co-Author</span></div>
-          </article>
-        </div>
-
-        <button class="slider-arrow right" type="button" onclick="scrollCards('journalTrack', 1)" aria-label="Next">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6.5L15 12l-5.5 5.5"></path></svg>
-        </button>
+    <div class="controls">
+      <div class="row">
+        <input id="host" value="http://line.tx-4k.com" placeholder="Host (e.g. http://line.tx-4k.com)" style="flex:1;min-width:260px">
+        <input id="username" value="b126a24d3" placeholder="Username" style="min-width:180px">
+        <input id="password" type="password" value="36a7e66d5d" placeholder="Password" style="min-width:180px">
+        <button id="connect">Connect</button>
+        <button id="logout" class="ghost" type="button">Logout</button>
       </div>
-    </section>
 
-    <!-- SECTION 2: POSTERS -->
-    <section class="section-block" id="posters">
-      <div class="section-label">Section 2 · Posters & Projects</div>
-      <h1 class="headline">Research <span class="headline-accent">Posters & Projects</span></h1>
-      <p class="headline-sub">Selected posters and projects presented at research symposia and academic institutions from 2019–2025.</p>
-
-      <div class="card-slider">
-        <button class="slider-arrow left" type="button" onclick="scrollCards('posterTrack', -1)" aria-label="Previous">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5L9 12l5.5 5.5"></path></svg>
-        </button>
-
-        <div class="card-track" id="posterTrack">
-          <article class="product-card">
-            <div class="product-tag">2025 · Pharmacogenomics Poster</div>
-            <h2 class="product-title">Optimizing Chemotherapy Safety: Implementing DPYD Pharmacogenomic Testing to Reduce 5-FU Toxicity</h2>
-            <div class="product-meta"><span>KU Research Symposium</span><span>KCHP Spring Conference</span><span>KPHA</span><span>Lawrence, Kansas</span></div>
-            <div class="product-image-wrap">
-              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/3.jpg" alt="DPYD poster" loading="lazy" />
-            </div>
-            <div class="poster-tags"><span class="tag">Pharmacogenomics</span><span class="tag">Research Poster</span></div>
-            <div class="product-actions">
-              <a class="btn btn-primary" href="Poster%203.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
-              <a class="btn btn-ghost" href="Poster%203.pdf" target="_blank" rel="noopener noreferrer" download>Download</a>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-tag">2023 · Research Poster</div>
-            <h2 class="product-title">The Effect of Structurally Diverse Indoles and Monosaccharides on Multiple Myeloma Cell Morphology via Cell Painting Assay</h2>
-            <div class="product-meta"><span>KU Research Symposium</span><span>Lawrence, Kansas</span></div>
-            <div class="product-image-wrap">
-              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/1.jpg" alt="Myeloma poster" loading="lazy" />
-            </div>
-            <div class="poster-tags"><span class="tag">Research Poster</span></div>
-            <div class="product-actions">
-              <a class="btn btn-primary" href="Poster%201.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
-              <a class="btn btn-ghost" href="Poster%201.pdf" target="_blank" rel="noopener noreferrer" download>Download</a>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-tag">2019 · Research Poster</div>
-            <h2 class="product-title">The Effect of D(+)-Maltose and Curry on Glycogen Phosphorylase b</h2>
-            <div class="product-meta"><span>KU Research Symposium</span><span>Lawrence, Kansas</span></div>
-            <div class="product-image-wrap">
-              <img src="https://raw.githubusercontent.com/a860h040/Poster/main/2.jpg" alt="Maltose poster" loading="lazy" />
-            </div>
-            <div class="poster-tags"><span class="tag">Research Poster</span></div>
-            <div class="product-actions">
-              <a class="btn btn-primary" href="Poster%202.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
-              <a class="btn btn-ghost" href="Poster%202.pdf" target="_blank" rel="noopener noreferrer" download>Download</a>
-            </div>
-          </article>
-        </div>
-
-        <button class="slider-arrow right" type="button" onclick="scrollCards('posterTrack', 1)" aria-label="Next">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6.5L15 12l-5.5 5.5"></path></svg>
-        </button>
+      <div class="row">
+        <button id="liveBtn" class="ghost" type="button">📡 Live TV</button>
+        <button id="moviesBtn" class="ghost" type="button">🎬 Movies</button>
+        <button id="seriesBtn" class="ghost" type="button">📺 Series</button>
+        <input id="search" placeholder="Search loaded items…" />
       </div>
-    </section>
 
-    <!-- SECTION 3: INFORMATICS -->
-    <section class="section-block" id="informatics">
-      <div class="section-label">Section 3 · Informatics Projects</div>
-      <h1 class="headline">Pharmacy <span class="headline-accent">Informatics Projects</span></h1>
-      <p class="headline-sub">Selected informatics tools and workflow projects built to support clinical decision-making, patient education, and operational efficiency.</p>
-
-      <section class="projects-strip" aria-label="Informatics projects">
-        <div class="projects-head">
-          <div class="projects-title">Informatics Projects</div>
-          <div class="projects-hint">Click an icon to open the project</div>
+      <div class="row" style="justify-content:space-between;gap:10px">
+        <div id="status"></div>
+        <div class="note" style="max-width:560px">
+          <span class="pill warn">Note</span>
+          Public CORS proxies can see your username/password (because they’re in the URL). Best fix is running your own proxy.
         </div>
+      </div>
+    </div>
+  </div>
+</header>
 
-        <div class="informatics-wrap">
-          <button class="slider-arrow left inf-arrow" type="button" onclick="scrollInformatics(-1)" aria-label="Scroll left">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5L9 12l5.5 5.5"></path></svg>
-          </button>
-
-          <div class="projects-row" id="informaticsRow"></div>
-
-          <button class="slider-arrow right inf-arrow" type="button" onclick="scrollInformatics(1)" aria-label="Scroll right">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6.5L15 12l-5.5 5.5"></path></svg>
-          </button>
-        </div>
-      </section>
-    </section>
-
-    <footer>
-      © <span id="year"></span> Alhamza Hamza · Hosted on
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
-    </footer>
-  </main>
-
-  <!-- Quick-jump icons -->
-  <div class="quick-jump" aria-label="Quick navigation">
-    <button class="jump-icon" type="button" onclick="scrollToSection('journals')" aria-label="Go to Journals">📚</button>
-    <button class="jump-icon" type="button" onclick="scrollToSection('posters')" aria-label="Go to Posters">📊</button>
-    <button class="jump-icon" type="button" onclick="scrollToSection('informatics')" aria-label="Go to Informatics">💻</button>
+<main>
+  <div class="kindHeader">
+    <h2 id="kindTitle">Not connected</h2>
+    <div class="hint" id="kindHint">Connect, then choose Live / Movies / Series to render category sliders.</div>
   </div>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+  <div id="sections"></div>
+</main>
 
-    const IV_TO_PO_IMG = "https://raw.githubusercontent.com/a860h040/Poster/main/6.png";
-    const VANCO_IMG     = "https://raw.githubusercontent.com/a860h040/Poster/main/7.png";
-    const COPD_IMG      = "https://raw.githubusercontent.com/a860h040/Poster/main/8.png";
-    const CHF_IMG      = "https://raw.githubusercontent.com/a860h040/Poster/main/12.png";
-    const PHOTO_IMG     = "https://raw.githubusercontent.com/a860h040/Poster/main/9.png";
-    const SHELF_IMG     = "https://raw.githubusercontent.com/a860h040/Poster/main/10.png";
-    const WORKFLOW_IMG  = "https://raw.githubusercontent.com/a860h040/Poster/main/11.png";
-    const LEXIEYE_IMG   = "https://raw.githubusercontent.com/a860h040/Poster/main/";
-    const DPYD_IMG      = "https://raw.githubusercontent.com/a860h040/Poster/main/";
-    const STOCKROOM_IMG = "https://raw.githubusercontent.com/a860h040/Poster/main/";
+<!-- Series drawer -->
+<div id="drawer">
+  <div id="drawerHead">
+    <h3 id="seriesTitle">Series</h3>
+    <div id="drawerTools">
+      <button id="copyAll" class="btn ghost" type="button">Copy All Links</button>
+      <button id="downloadM3U" class="btn primary" type="button">Download M3U</button>
+      <button id="closeDrawer" class="btn ghost" type="button">Close</button>
+    </div>
+  </div>
+  <div id="seasons"></div>
+</div>
 
-    const informaticsProjects = [
-      { title:"Vancomycin + Coverage", subtitle:"Clinical Calculators", href:"https://sites.google.com/view/antibiotics-coverage-tool/pharmacy-tools", img:VANCO_IMG, scale: 1.15, pad: 0 },
-      { title:"IV-to-PO", subtitle:"Conversion Assistant", href:"https://a860h040.github.io/IV-to-PO/", img:IV_TO_PO_IMG, scale: 1.15, pad: 0 },
-      { title:"COPD Guide", subtitle:"Patient Education", href:"https://a860h040.github.io/COPD/", img:COPD_IMG, scale: 1.15, pad: 0 },
-      { title:"CHF Guide", subtitle:"Patient Education", href:"https://a860h040.github.io/CHF/", img:CHF_IMG, scale: 1.15, pad: 0 },
-      { title:"IV Photo-Verify", subtitle:"Compounding Workflow", href:"https://a860h040.github.io/Showmedemo6APP/", img:PHOTO_IMG, scale: 1.20, pad: 0 },
-      { title:"Shelf Tracker", subtitle:"Medication Tracking", href:"https://a860h040.github.io/Medication-Shelf-Tracker/", img:SHELF_IMG, scale: 1.15, pad: 0 },
-      { title:"Workflow Manager", subtitle:"Technician Team", href:"https://sites.google.com/view/workflowhospital/home", img:WORKFLOW_IMG, scale: 1.15, pad: 0 },
-      { title:"LexiEye-LIVE", subtitle:"Pill Counting Camera", href:"https://a860h040.github.io/lexieye-LIVE/", img:LEXIEYE_IMG, scale: 1.15, pad: 0 },
-      { title:"DPYD + 5-FU", subtitle:"Risk Estimator", href:"https://sites.google.com/view/dpyd-testing/home", img:DPYD_IMG, scale: 1.15, pad: 0 },
-      { title:"Stockroom Locator", subtitle:"Medication Locator", href:"https://sites.google.com/view/olathemdc/home", img:STOCKROOM_IMG, scale: 1.15, pad: 0 }
-    ];
+<script>
+/* ---------------- Helpers ---------------- */
+const $ = id => document.getElementById(id);
+const trimSlash = s => s.replace(/\/$/,'');
+const placeholderImg = 'https://via.placeholder.com/160x200?text=No+Image';
 
-    function renderInformaticsCircles() {
-      const row = document.getElementById("informaticsRow");
-      if (!row) return;
+function setStatus(msg, kind){
+  $('status').innerHTML = msg ? `<span class="pill ${kind==='ok'?'ok':kind==='err'?'err':kind==='warn'?'warn':''}">${msg}</span>` : '';
+}
 
-      row.innerHTML = informaticsProjects.map(p => `
-        <div class="project-item">
-          <a
-            class="project-circle"
-            href="${p.href}"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="${p.title}"
-            style="--img-scale:${p.scale || 1}; --img-pad:${(p.pad ?? 18)}px;"
-          >
-            <img src="${p.img}" alt="" loading="lazy" />
-            <div class="fallback">${p.title}</div>
-          </a>
-          <div class="project-label">${p.title}</div>
-          <div class="project-sub">${p.subtitle || ""}</div>
-        </div>
-      `).join("");
+function safeName(s){ return (s||'').replace(/[^\w\s\-\.\(\)&]/g,'').trim(); }
+
+function pickJsonText(text){
+  const iObj = text.indexOf('{');
+  const iArr = text.indexOf('[');
+  let i = -1;
+  if (iArr !== -1 && (iObj === -1 || iArr < iObj)) i = iArr;
+  else i = iObj;
+  return i === -1 ? text : text.slice(i);
+}
+
+/*
+  IMPORTANT:
+  Using a public proxy sends your IPTV credentials to that proxy.
+  Best: run your OWN proxy and set PROXY_MODE='self' and PROXY_BASE to yours.
+*/
+const PROXY_MODE = 'public'; // 'public' | 'none' | 'self'
+const PROXY_BASE = '';       // e.g. 'http://localhost:8787/' (your own proxy that forwards full URL)
+
+function wrapUrl(url){
+  if (PROXY_MODE === 'none') return url;
+  if (PROXY_MODE === 'self') return PROXY_BASE + url;
+  return url;
+}
+
+async function fetchJsonRobust(url){
+  const direct = wrapUrl(url);
+
+  const publicTries = [
+    direct,
+    `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    `https://cors.isomorphic-git.org/${url}`
+  ];
+
+  const tries = (PROXY_MODE === 'public') ? publicTries : [direct];
+
+  let lastErr = null;
+  for (const u of tries){
+    try{
+      const r = await fetch(u, { cache:'no-store' });
+      const text = await r.text();
+      const cleaned = pickJsonText(text);
+
+      if (!r.ok){
+        throw new Error(`HTTP ${r.status} :: ${cleaned.slice(0,180)}`);
+      }
+      return JSON.parse(cleaned);
+    }catch(e){
+      lastErr = e;
+    }
+  }
+  throw lastErr || new Error('Unknown fetch error');
+}
+
+/* ---------------- Local Storage (Favorites) ---------------- */
+const store = {
+  get favSeries(){ return JSON.parse(localStorage.getItem('fav_series_map')||'{}'); }, // id -> {id,name,cover}
+  set favSeries(v){ localStorage.setItem('fav_series_map', JSON.stringify(v)); },
+  get favCount(){ return JSON.parse(localStorage.getItem('fav_series_count')||'{}'); }, // id -> opens
+  set favCount(v){ localStorage.setItem('fav_series_count', JSON.stringify(v)); },
+};
+
+/* ---------------- State ---------------- */
+const S = {
+  host:'', user:'', pass:'',
+  kind:'',              // 'live' | 'vod' | 'series'
+  categories:[],
+  // cache per category: catId -> array items
+  catItems: new Map(),
+  // original items used for search filtering
+  catItemsRaw: new Map(),
+  // track rendered section nodes
+  catNodes: new Map(),
+  // lazy loader
+  io: null,
+
+  // series drawer
+  currentSeries: null,
+  currentSeasons: {},
+};
+
+/* ---------------- Login ---------------- */
+$('connect').onclick = async () => {
+  S.host = trimSlash($('host').value.trim());
+  S.user = $('username').value.trim();
+  S.pass = $('password').value.trim();
+  if (!S.host || !S.user || !S.pass) return setStatus('Enter host / username / password', 'err');
+
+  setStatus('Connecting…');
+  try{
+    const url = `${S.host}/player_api.php?username=${encodeURIComponent(S.user)}&password=${encodeURIComponent(S.pass)}`;
+    const data = await fetchJsonRobust(url);
+
+    if (data.user_info && String(data.user_info.auth) === '1'){
+      setStatus('Login OK','ok');
+      $('kindTitle').textContent = 'Connected';
+      $('kindHint').textContent = 'Choose Live / Movies / Series to render category sliders.';
+    } else {
+      setStatus('Invalid login','err');
+    }
+  }catch(e){
+    console.error(e);
+    setStatus('Cannot connect (API). Check host or proxy.', 'err');
+  }
+};
+
+$('logout').onclick = () => location.reload();
+
+function requireLogin(){
+  if (!S.host || !S.user || !S.pass) throw new Error('Login first');
+}
+
+/* ---------------- Search across LOADED category rows ---------------- */
+$('search').addEventListener('input', ()=>{
+  const term = $('search').value.trim().toLowerCase();
+  for (const [catId, raw] of S.catItemsRaw.entries()){
+    const filtered = term
+      ? raw.filter(x => (x.name||'').toLowerCase().includes(term))
+      : raw.slice();
+    S.catItems.set(catId, filtered);
+    renderTrack(catId);
+  }
+});
+
+/* ---------------- Nav ---------------- */
+$('liveBtn').onclick = ()=> loadKind('live');
+$('moviesBtn').onclick = ()=> loadKind('vod');
+$('seriesBtn').onclick = ()=> loadKind('series');
+
+/* ---------------- Category sliders layout ---------------- */
+function resetView(){
+  closeDrawer();
+  $('sections').innerHTML = '';
+  S.categories = [];
+  S.catItems.clear();
+  S.catItemsRaw.clear();
+  S.catNodes.clear();
+  if (S.io) { try{ S.io.disconnect(); }catch{} }
+  S.io = null;
+}
+
+function setKindHeader(kind){
+  const label = kind==='live' ? 'Live TV'
+              : kind==='vod' ? 'Movies'
+              : 'Series';
+  $('kindTitle').textContent = `${label} — Category Sliders`;
+  $('kindHint').textContent = 'Scroll the page; each category row loads automatically when it becomes visible.';
+}
+
+function makeArrow(direction){
+  const b = document.createElement('button');
+  b.className = 'sliderArrow ' + direction;
+  b.type = 'button';
+  b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${direction==='left' ? 'M14.5 6.5L9 12l5.5 5.5' : 'M9.5 6.5L15 12l-5.5 5.5'}"></path></svg>`;
+  return b;
+}
+
+function createCategorySection(cat){
+  const catId = String(cat.category_id);
+  const name = cat.category_name || 'Category';
+
+  const sec = document.createElement('section');
+  sec.className = 'catSection';
+  sec.dataset.cat = catId;
+
+  const top = document.createElement('div');
+  top.className = 'catTop';
+
+  const left = document.createElement('div');
+  left.className = 'catName';
+  left.innerHTML = `<span>${escapeHtml(name)}</span> <span class="catMeta" id="meta_${catId}">• waiting to load…</span>`;
+
+  const right = document.createElement('div');
+  right.style.display = 'flex';
+  right.style.gap = '8px';
+  right.style.flexWrap = 'wrap';
+
+  const loadBtn = document.createElement('button');
+  loadBtn.className = 'ghost';
+  loadBtn.type = 'button';
+  loadBtn.textContent = 'Load';
+  loadBtn.onclick = ()=> loadCategoryItems(catId);
+
+  right.appendChild(loadBtn);
+  top.appendChild(left);
+  top.appendChild(right);
+
+  const wrap = document.createElement('div');
+  wrap.className = 'sliderWrap';
+
+  const track = document.createElement('div');
+  track.className = 'track';
+  track.id = `track_${catId}`;
+
+  // skeleton placeholders
+  for (let i=0;i<6;i++){
+    const sk = document.createElement('div');
+    sk.className = 'skeleton';
+    track.appendChild(sk);
+  }
+
+  const aL = makeArrow('left');
+  const aR = makeArrow('right');
+  aL.onclick = ()=> scrollTrack(track.id, -1);
+  aR.onclick = ()=> scrollTrack(track.id, 1);
+
+  wrap.appendChild(aL);
+  wrap.appendChild(track);
+  wrap.appendChild(aR);
+
+  sec.appendChild(top);
+  sec.appendChild(wrap);
+
+  S.catNodes.set(catId, sec);
+  return sec;
+}
+
+function scrollTrack(trackId, dir){
+  const tr = document.getElementById(trackId);
+  if (!tr) return;
+  const card = tr.querySelector('.card') || tr.querySelector('.skeleton');
+  const gap = 14;
+  const amt = card ? card.offsetWidth + gap : 320;
+  tr.scrollBy({ left: dir * amt, behavior:'smooth' });
+}
+
+function buildSections(){
+  const box = $('sections');
+  box.innerHTML = '';
+
+  // IntersectionObserver: load category row when visible
+  S.io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if (e.isIntersecting){
+        const catId = e.target.dataset.cat;
+        loadCategoryItems(catId);
+        // load once
+        try{ S.io.unobserve(e.target); }catch{}
+      }
+    });
+  }, { root:null, threshold:0.2 });
+
+  S.categories.forEach(cat=>{
+    const sec = createCategorySection(cat);
+    box.appendChild(sec);
+    S.io.observe(sec);
+  });
+
+  if (!S.categories.length){
+    box.innerHTML = `<div class="catSection"><div class="emptyRow">No categories found.</div></div>`;
+  }
+}
+
+/* ---------------- Loaders ---------------- */
+async function loadKind(kind){
+  closeDrawer();
+  try{ requireLogin(); } catch { return setStatus('Login first','err'); }
+
+  resetView();
+  S.kind = kind;
+  setKindHeader(kind);
+  $('search').value = '';
+
+  setStatus('Loading categories…');
+  try{
+    let url = '';
+    if (kind === 'live'){
+      url = `${S.host}/player_api.php?username=${encodeURIComponent(S.user)}&password=${encodeURIComponent(S.pass)}&action=get_live_categories`;
+    } else if (kind === 'vod'){
+      url = `${S.host}/player_api.php?username=${encodeURIComponent(S.user)}&password=${encodeURIComponent(S.pass)}&action=get_vod_categories`;
+    } else {
+      url = `${S.host}/player_api.php?username=${encodeURIComponent(S.user)}&password=${encodeURIComponent(S.pass)}&action=get_series_categories`;
     }
 
-    function attachCircleImageFallbacks() {
-      document.querySelectorAll(".project-circle img").forEach(img => {
-        const circle = img.closest(".project-circle");
-        if (!circle) return;
+    const cats = await fetchJsonRobust(url);
+    S.categories = Array.isArray(cats) ? cats : [];
 
-        const markBroken = () => circle.classList.add("no-img");
-        img.addEventListener("error", markBroken);
-        if (img.complete && img.naturalWidth === 0) markBroken();
+    buildSections();
+    setStatus('Ready','ok');
+  }catch(e){
+    console.error(e);
+    setStatus(`Failed to load categories: ${String(e.message||e).slice(0,140)}`, 'err');
+    $('sections').innerHTML = `<div class="catSection"><div class="emptyRow" style="color:#b91c1c">Could not load categories.</div></div>`;
+  }
+}
+
+async function loadCategoryItems(catId){
+  // already loaded?
+  if (S.catItemsRaw.has(catId)) return;
+
+  const meta = document.getElementById(`meta_${catId}`);
+  if (meta) meta.textContent = '• loading…';
+
+  try{
+    let url = '';
+    if (S.kind === 'live'){
+      url = `${S.host}/player_api.php?username=${encodeURIComponent(S.user)}&password=${encodeURIComponent(S.pass)}&action=get_live_streams&category_id=${encodeURIComponent(catId)}`;
+    } else if (S.kind === 'vod'){
+      url = `${S.host}/player_api.php?username=${encodeURIComponent(S.user)}&password=${encodeURIComponent(S.pass)}&action=get_vod_streams&category_id=${encodeURIComponent(catId)}`;
+    } else {
+      url = `${S.host}/player_api.php?username=${encodeURIComponent(S.user)}&password=${encodeURIComponent(S.pass)}&action=get_series&category_id=${encodeURIComponent(catId)}`;
+    }
+
+    const data = await fetchJsonRobust(url);
+    const arr = Array.isArray(data) ? data : [];
+
+    S.catItemsRaw.set(catId, arr.slice());
+    S.catItems.set(catId, arr.slice());
+
+    if (meta) meta.textContent = `• ${arr.length} item(s)`;
+    renderTrack(catId);
+  }catch(e){
+    console.error(e);
+    if (meta) meta.textContent = '• failed to load';
+    const tr = document.getElementById(`track_${catId}`);
+    if (tr) tr.innerHTML = `<div class="emptyRow" style="color:#b91c1c">Failed to load this category.</div>`;
+  }
+}
+
+/* ---------------- Render track cards ---------------- */
+function renderTrack(catId){
+  const tr = document.getElementById(`track_${catId}`);
+  if (!tr) return;
+
+  const list = S.catItems.get(catId) || [];
+  tr.innerHTML = '';
+
+  if (!list.length){
+    tr.innerHTML = `<div class="emptyRow">No results.</div>`;
+    return;
+  }
+
+  list.forEach(item=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    let imgSrc = placeholderImg, title='Item', meta='';
+
+    if (S.kind==='live'){
+      imgSrc = (item.stream_icon && item.stream_icon !== 'null') ? item.stream_icon : placeholderImg;
+      title = item.name || 'Channel';
+      meta = item.category_name || '';
+      const m3u8 = `${S.host}/live/${encodeURIComponent(S.user)}/${encodeURIComponent(S.pass)}/${item.stream_id}.m3u8`;
+      card.onclick = ()=> window.open(m3u8, '_blank', 'noopener');
+    } else if (S.kind==='vod'){
+      imgSrc = (item.stream_icon && item.stream_icon !== 'null') ? item.stream_icon : placeholderImg;
+      title = item.name || 'Movie';
+      meta = (item.container_extension||'mp4').toUpperCase();
+      const mp4 = `${S.host}/movie/${encodeURIComponent(S.user)}/${encodeURIComponent(S.pass)}/${item.stream_id}.mp4`;
+      card.onclick = ()=> window.open(mp4, '_blank', 'noopener');
+    } else {
+      imgSrc = (item.cover && item.cover !== 'null') ? item.cover : (item.stream_icon||placeholderImg);
+      title = item.name || 'Series';
+      meta = item.releaseDate || '';
+      card.onclick = ()=> openSeries(item);
+
+      // Favorite toggle
+      const star = document.createElement('button');
+      const id = String(item.series_id);
+      const favMap = store.favSeries;
+      const isFav = !!favMap[id];
+
+      star.className = 'fav' + (isFav ? '' : ' off');
+      star.textContent = isFav ? '★' : '☆';
+      star.title = 'Toggle favorite';
+      star.onclick = (e)=>{ e.stopPropagation(); toggleFavSeries(item, star); };
+      card.appendChild(star);
+    }
+
+    const img = document.createElement('img');
+    img.className = 'thumb';
+    img.src = imgSrc;
+    img.onerror = ()=> img.src = placeholderImg;
+
+    const t = document.createElement('span');
+    t.className = 'titleTxt';
+    t.textContent = title;
+
+    const m = document.createElement('div');
+    m.className = 'metaTxt';
+    m.textContent = meta;
+
+    card.appendChild(img);
+    card.appendChild(t);
+    card.appendChild(m);
+    tr.appendChild(card);
+  });
+}
+
+/* ---------------- Favorites (Series) ---------------- */
+function toggleFavSeries(item, btn){
+  const id = String(item.series_id);
+  const favMap = store.favSeries;
+
+  if (favMap[id]){
+    delete favMap[id];
+    btn.classList.add('off'); btn.textContent='☆';
+  } else {
+    favMap[id] = {
+      id,
+      name: item.name || 'Series',
+      cover: item.cover || item.stream_icon || '',
+      category_id: item.category_id || '',
+      releaseDate: item.releaseDate || ''
+    };
+    btn.classList.remove('off'); btn.textContent='★';
+  }
+  store.favSeries = favMap;
+}
+
+/* ---------------- Series drawer ---------------- */
+$('closeDrawer').onclick = ()=> closeDrawer();
+$('copyAll').onclick = ()=> {
+  if (!S.currentSeries) return;
+  const links = buildAllEpisodeLinks(S.currentSeasons);
+  copyText(links.join('\n'));
+  flash('Copied all episode links');
+};
+$('downloadM3U').onclick = ()=> {
+  if (!S.currentSeries) return;
+  const links = buildAllEpisodeLinks(S.currentSeasons);
+  const m3u = buildM3U(links, S.currentSeries.name);
+  downloadText(m3u, `${safeName(S.currentSeries.name || 'series')}.m3u`);
+};
+
+async function openSeries(serie){
+  $('seriesTitle').textContent = serie.name || 'Series';
+  S.currentSeries = { id: String(serie.series_id), name: serie.name || 'Series' };
+  $('seasons').innerHTML = '<p style="padding:8px">Loading seasons & episodes…</p>';
+  $('drawer').style.display = 'block';
+
+  // open count
+  const counts = store.favCount;
+  counts[S.currentSeries.id] = (counts[S.currentSeries.id] || 0) + 1;
+  store.favCount = counts;
+
+  try{
+    const url = `${S.host}/player_api.php?username=${encodeURIComponent(S.user)}&password=${encodeURIComponent(S.pass)}&action=get_series_info&series_id=${encodeURIComponent(serie.series_id)}`;
+    const info = await fetchJsonRobust(url);
+
+    const episodesBySeason = info.episodes || {};
+    S.currentSeasons = episodesBySeason;
+
+    const seasonsBox = $('seasons');
+    seasonsBox.innerHTML = '';
+    const seasonNums = Object.keys(episodesBySeason).sort((a,b)=>Number(a)-Number(b));
+
+    if (!seasonNums.length){
+      seasonsBox.innerHTML = '<p style="padding:8px">No episodes found.</p>';
+      return;
+    }
+
+    seasonNums.forEach(seasonNo=>{
+      const eps = episodesBySeason[seasonNo] || [];
+
+      const det = document.createElement('details');
+      det.className='season';
+
+      const sum = document.createElement('summary');
+      sum.textContent = `Season ${seasonNo} • ${eps.length} episode(s)`;
+
+      const wrap = document.createElement('div');
+      wrap.className='episodes';
+
+      const seasonTools = document.createElement('div');
+      seasonTools.style.cssText = 'display:flex;gap:8px;align-items:center;margin:6px 0;flex-wrap:wrap';
+
+      const btnCopySeason = document.createElement('button');
+      btnCopySeason.className='btn ghost';
+      btnCopySeason.textContent='Copy Season Links';
+      btnCopySeason.onclick = (e)=>{
+        e.preventDefault();
+        const links = buildAllEpisodeLinks({[seasonNo]: eps});
+        copyText(links.join("\n"));
+        flash(`Copied Season ${seasonNo} links`);
+      };
+
+      const btnM3USeason = document.createElement('button');
+      btnM3USeason.className='btn primary';
+      btnM3USeason.textContent='Download Season M3U';
+      btnM3USeason.onclick = (e)=>{
+        e.preventDefault();
+        const links = buildAllEpisodeLinks({[seasonNo]: eps});
+        const m3u = buildM3U(links, `${S.currentSeries.name} - S${seasonNo}`);
+        downloadText(m3u, `${safeName(S.currentSeries.name)}_S${seasonNo}.m3u`);
+      };
+
+      seasonTools.appendChild(btnCopySeason);
+      seasonTools.appendChild(btnM3USeason);
+      wrap.appendChild(seasonTools);
+
+      eps.forEach(ep=>{
+        const row = document.createElement('div');
+        row.className='ep';
+
+        const title = document.createElement('div');
+        title.className='name';
+        title.textContent = ep.title || `Episode ${ep.episode_num || ''}`;
+
+        const ext = (ep.container_extension || 'mp4').replace(/^\./,'');
+        const epUrl = `${S.host}/series/${encodeURIComponent(S.user)}/${encodeURIComponent(S.pass)}/${ep.id}.${ext}`;
+
+        const open = document.createElement('a');
+        open.className='btn primary';
+        open.textContent='Open Link';
+        open.href = epUrl;
+        open.target='_blank';
+        open.rel='noopener';
+
+        const openBrowser = document.createElement('button');
+        openBrowser.className = 'btn ghost';
+        openBrowser.textContent = 'Open in Browser';
+        openBrowser.onclick = () => {
+          const safe = s => String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          const mime = ext.toLowerCase()==='m3u8'
+            ? 'application/vnd.apple.mpegurl'
+            : (ext.toLowerCase()==='mp4' ? 'video/mp4' : `video/${ext.toLowerCase()}`);
+
+          const html = `<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>${safe(ep.title || 'Episode')}</title>
+<style>
+  body{margin:0;background:#f5f5f7;color:#1d1d1f;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}
+  header{padding:12px 14px;background:#ffffff;border-bottom:1px solid #e5e7eb;font-weight:900}
+  .wrap{padding:12px;display:grid;gap:10px}
+  video{width:100%;max-height:75vh;background:#000;border-radius:18px;border:1px solid #e5e7eb}
+  a{color:#0071e3;text-decoration:none;font-weight:900}
+  .muted{color:#6e6e73;font-size:.9rem;line-height:1.35}
+</style>
+</head>
+<body>
+<header>Browser Player</header>
+<div class="wrap">
+  <div><strong>${safe(S.currentSeries?.name || 'Series')}</strong> — ${safe(ep.title || 'Episode')}</div>
+  <video controls autoplay playsinline>
+    <source src="${epUrl}" type="${mime}">
+    Your browser can't play this stream. <a href="${epUrl}">Open direct link</a>
+  </video>
+  <div class="muted">
+    If it doesn’t play: many browsers don’t support all stream types (especially HLS on Chrome/Windows). Use “Open Link” in VLC.
+  </div>
+</div>
+</body>
+</html>`;
+          const blob = new Blob([html], { type: 'text/html' });
+          const u = URL.createObjectURL(blob);
+          window.open(u, '_blank', 'noopener');
+          setTimeout(()=>URL.revokeObjectURL(u), 30000);
+        };
+
+        const copy = document.createElement('button');
+        copy.className='btn ghost copy';
+        copy.textContent='Copy VLC Link';
+        copy.onclick = async ()=>{
+          await copyText(epUrl);
+          copy.textContent='Copied!';
+          setTimeout(()=>copy.textContent='Copy VLC Link', 1200);
+        };
+
+        row.appendChild(title);
+        row.appendChild(open);
+        row.appendChild(openBrowser);
+        row.appendChild(copy);
+        wrap.appendChild(row);
       });
-    }
 
-    renderInformaticsCircles();
-    attachCircleImageFallbacks();
+      det.appendChild(sum);
+      det.appendChild(wrap);
+      seasonsBox.appendChild(det);
+    });
 
-    function scrollCards(trackId, direction) {
-      const track = document.getElementById(trackId);
-      if (!track) return;
-      const card = track.querySelector(".product-card");
-      const gap = 20;
-      const amount = card ? card.offsetWidth + gap : 320;
-      track.scrollBy({ left: direction * amount, behavior: "smooth" });
-    }
+    const first = seasonsBox.querySelector('details');
+    if (first) first.open = true;
 
-    function scrollInformatics(direction){
-      const row = document.getElementById("informaticsRow");
-      if (!row) return;
+  }catch(e){
+    console.error(e);
+    $('seasons').innerHTML = `<p style="padding:8px;color:#b91c1c">Failed to load episodes: ${String(e.message||e).slice(0,120)}</p>`;
+  }
+}
 
-      const item = row.querySelector(".project-item");
-      const gap = 18;
-      const amount = item ? item.offsetWidth + gap : 300;
+function closeDrawer(){
+  $('drawer').style.display='none';
+  S.currentSeries=null;
+  S.currentSeasons={};
+}
 
-      row.scrollBy({ left: direction * amount, behavior: "smooth" });
-    }
+/* ---------------- Link builders & utils ---------------- */
+function buildAllEpisodeLinks(bySeason){
+  const links = [];
+  const seasonNums = Object.keys(bySeason).sort((a,b)=>Number(a)-Number(b));
+  seasonNums.forEach(s=>{
+    (bySeason[s]||[]).forEach(ep=>{
+      const ext = (ep.container_extension || 'mp4').replace(/^\./,'');
+      links.push(`${S.host}/series/${encodeURIComponent(S.user)}/${encodeURIComponent(S.pass)}/${ep.id}.${ext}`);
+    });
+  });
+  return links;
+}
 
-    function scrollToSection(id) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+function buildM3U(links, title='Playlist'){
+  let m3u = '#EXTM3U\n';
+  links.forEach((u, i)=>{
+    m3u += `#EXTINF:-1,${title} ${String(i+1).padStart(2,'0')}\n${u}\n`;
+  });
+  return m3u;
+}
 
-      const tabs = document.querySelectorAll(".tab-pill");
-      tabs.forEach(t => t.classList.remove("active"));
-      if (id === "journals") tabs[0]?.classList.add("active");
-      if (id === "posters") tabs[1]?.classList.add("active");
-      if (id === "informatics") tabs[2]?.classList.add("active");
-    }
-  </script>
+async function copyText(txt){
+  try { await navigator.clipboard.writeText(txt); } catch {}
+}
+
+function downloadText(txt, filename){
+  const blob = new Blob([txt], {type:'audio/x-mpegurl'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename || 'playlist.m3u';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=> URL.revokeObjectURL(url), 1000);
+}
+
+function flash(msg){
+  const prev = $('status').innerHTML;
+  setStatus(msg,'ok');
+  setTimeout(()=>{ $('status').innerHTML = prev; }, 1200);
+}
+
+function escapeHtml(s){
+  return String(s||'')
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#39;");
+}
+</script>
 </body>
 </html>
+
